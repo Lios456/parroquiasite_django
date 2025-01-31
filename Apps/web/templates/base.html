@@ -7,6 +7,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Validacion del jquery y jqueryValidation-->
+    
+
+    <link href="{% static 'images/main-logo.ico' %}" rel="icon">
 
     <!-- ================================================== Bootstrap ================================================== -->
     <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap.min.css' %}">
@@ -120,9 +124,6 @@
                         </li>
                         <li class="nav-item px-3 py-1 py-lg-0">
                             <a class="nav-link p-0" href="/news/">Noticias</a>
-                        </li>
-                        <li class="nav-item px-3 py-1 py-lg-0">
-                            <a class="nav-link p-0" href="/catequesis/">Catequesis</a>
                         </li>
                         <li class="nav-item px-3 py-1 py-lg-0">
                             <a class="nav-link p-0" href="/contacto/">Contacto</a>
@@ -351,12 +352,12 @@
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="18" height="18">
                                 <use xlink:href="#email"></use>
-                            </svg><a href="#"> pendiente </a>
+                            </svg><a href="#"> csantana@uc.cl </a>
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="18" height="18">
                                 <use xlink:href="#phone"></use>
-                            </svg><a href="#"> 888 333 9999 </a>
+                            </svg><a href="#"> 0999241534 </a>
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="18" height="18">
@@ -366,40 +367,12 @@
                     </ul>
                 </div>
                 <div class="footer-menu">
-                    <h5 class=" widget-title py-2 mt-4 fw-semibold">Social Link</h5>
+                    <h5 class=" widget-title py-2 mt-4 fw-semibold">Redes Sociales</h5>
                     <ul class="social-links d-flex flex-wrap list-unstyled">
                         <li class="social me-3">
                             <a href="https://www.facebook.com/parroquiasantisimatrinidad.lalagunalatacunga">
                                 <svg class=" me-1" width="24" height="24">
                                     <use xlink:href="#facebook"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social me-3">
-                            <a href="#">
-                                <svg class=" me-1" width="24" height="24">
-                                    <use xlink:href="#twitter"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social me-3">
-                            <a href="#">
-                                <svg class=" me-1" width="24" height="24">
-                                    <use xlink:href="#linkedin"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social me-3">
-                            <a href="#">
-                                <svg class=" me-1" width="24" height="24">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li class="social me-3">
-                            <a href="#">
-                                <svg class=" me-1" width="24" height="24">
-                                    <use xlink:href="#youtube"></use>
                                 </svg>
                             </a>
                         </li>
@@ -415,8 +388,8 @@
         </div>
     </div>
 </footer>
-
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+<script src="{% static 'js/jquery.validate.js' %}"></script>
 <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
