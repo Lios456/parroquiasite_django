@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
+from django.core.mail import send_mail
+
 
 # Create your views here.
 
@@ -68,19 +70,91 @@ def santisimatrinidad(request):
 
 
 
+from django.core.mail import send_mail
+from django.contrib import messages
+
 def contacto(request):
     if request.method == 'POST':
         try:
-            m = Mensaje()
-            m.name =  request.POST.get('name')
-            m.email = request.POST.get('email')
-            m.phone = request.POST.get('phone')
-            m.address =request.POST.get('address')
-            m.message =request.POST.get('message')
+            # Obtener datos del formulario
+            name = request.POST.get('name')
+            email = request.POST.get('email')  # Email del usuario
+            phone = request.POST.get('phone')
+            address = request.POST.get('address')
+            message = request.POST.get('message')
+
+            # Guardar en la base de datos
+            m = Mensaje(
+                name=name,
+                email=email,
+                phone=phone,
+                address=address,
+                message=message,
+            )
             m.save()
-            messages.success(request,'Se ha enviado con éxito el mensaje')
+
+            # 📧 Enviar correo al usuario
+            subject_user = "Confirmación de tu mensaje"
+            body_user = f"""
+            Hola {name},
+
+            Hemos recibido tu mensaje y nos pondremos en contacto contigo lo antes posible.
+
+            Detalles de tu mensaje:
+            -----------------------
+            Nombre: {name}
+            Email: {email}
+            Teléfono: {phone}
+            Dirección: {address}
+            Mensaje: {message}
+
+            Gracias por contactarnos.
+
+            Atentamente,
+            Santísima Trinidad La Laguna
+            """
+
+            send_mail(
+                subject_user,
+                body_user,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                [email],  # Destinatario: usuario que llenó el formulario
+                fail_silently=False,
+            )
+
+            # 📧 Enviar correo a la empresa
+            subject_admin = f"Nuevo mensaje de {name}"
+            body_admin = f"""
+            ¡Hola!
+
+            {name} se ha puesto en contacto contigo a través del formulario.
+
+            Detalles del mensaje:
+            -----------------------
+            Nombre: {name}
+            Email: {email}
+            Teléfono: {phone}
+            Dirección: {address}
+            Mensaje: {message}
+
+            Por favor, revisa y responde lo antes posible.
+
+            Atentamente,
+            Sistema de Contacto
+            """
+
+            send_mail(
+                subject_admin,
+                body_admin,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                ['santisimatrinidadlalaguna@gmail.com'],  # Destinatario: correo de la empresa
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Tu mensaje ha sido enviado con éxito. Revisa tu correo.')
 
         except Exception as e:
-            messages.error(request, f'Error:{e}')
-    
+            messages.error(request, f'Error al enviar el mensaje: {str(e)}')
+
     return render(request, 'contacto.php')
+
