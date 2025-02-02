@@ -77,7 +77,7 @@
             <div class="row text-center">
                 <p>{{n.fecha}}</p>
             </div>
-            <p>{{n.contenido|striptags|slice:":40"}}</p>
+            <p>{{n.contenido|striptags|truncatechars:40}}</p>
             <div class="container d-flex justify-content-center mt-3 mb-3">
               <a href="/new/{{n.id}}" class="btn btn-outline-warning p-1" >Ver mas</a>
             </div>
