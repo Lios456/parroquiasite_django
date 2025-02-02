@@ -37,10 +37,17 @@ def news(request):
     return render(request, 'noticias.html', context)
 
 def new(request,id):
-    context = {
-        'noticia':Noticia.objects.get(id=id)
-    }
-    return render(request, 'noticia.html', context)
+    try:
+        noticia = Noticia.objects.get(id=id)
+        context = {
+            'noticia': noticia
+        }
+        return render(request, 'noticia.html', context)
+    except Exception as e:
+        messages.error(request, "No existe ninguna noticia")
+        return redirect('/news/')
+
+   
 
 def edit_news(request, id):
     noti = Noticia.objects.get(id=id)

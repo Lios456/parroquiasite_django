@@ -61,21 +61,5 @@
 
 </script>
 {% endif %}
-<div class="container">
-  {% for n in noticias %}
-    <div class="border border-1 row text-center m-5 p-5">
-      <h2>{{n.titulo}}</h2>
-      <div class="container-lg"> 
-        {{ n.contenido|safe }}
-      </div>
-      <div class="d-flex justify-content-center mt-3 mb-3">
-        <a href="/new/{{n.id}}" class="btn btn-outline-warning w-25 p-1" >Ver mas</a>
-      </div>
-      <div class="row">
-        {{n.fecha}}
-      </div>
-    </div>
-  {% endfor %}
-</div>
 
 {% endblock  %}

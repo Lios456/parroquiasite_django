@@ -20,21 +20,26 @@
   <div class="container">
     <h6 class="fst-italic text-capitalize mb-4"> Párrocos
     </h6>
-    <div class="row">
-      <div class="col my-4">
-        <a href="">Mons. Lorenzo Voltonili</a>
+    <div class="row row-sm">
+      <div class="col col-md-4 my-4 text-center">
+        <img src="{% static 'images/parrocos/mon_lorenzo.png' %}" alt="" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>Mons. Lorenzo Voltonili</p>
       </div>
-      <div class="col my-4">
-        <a href="">Mons. Victoriano Naranjo</a>
+      <div class="col col-md-4 my-4 text-center">
+        <img src="{% static 'images/parrocos/victoriano_naranjo.jpeg' %}" alt="" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>Mons. Victoriano Naranjo</p>
       </div>
-      <div class="col my-4">
-        <a href="">✚ P. Emiliano Jácome ✚</a>
+      <div class="col col-md-4 my-4 text-center">
+        <img src="{% static 'images/parrocos/p_emiliano.jpeg' %}" alt="" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>✚ P. Luis Emiliano Jácome ✚</p>
       </div>
-      <div class="col my-4">
-        <a href="">P. José Luis Tapia</a>
+      <div class="col col-md-4 my-4 text-center">
+        <img src="{% static 'images/parrocos/p_jose_luis.jpeg' %}" alt="" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>P. José Luis Tapia</p>
       </div>
-      <div class="col my-4">
-        <a href="">P. Cristian Santana</a>
+      <div class="col col-md-4 my-4 text-center">
+        <img src="{% static 'images/parrocos/p_cristian.jpg' %}" alt="" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>P. Cristian Santana</p>
       </div>
     </div>
   </div>
@@ -43,12 +48,12 @@
     </h6>
     <div class="row">
       <div class="col my-4">
-        <a href="">P. Luis Gutiérrez</a>
+        <img src="{% static 'images/parrocos/p_luis_gutierrez.jpeg' %}" alt="" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>P. Luis Gutiérrez</p>
       </div>
     </div>
   </div>
 </section>
-<hr>
 
 <!-- SECCIÓN DE NOTICIAS -->
 <section id="blog">
@@ -67,43 +72,22 @@
     <div class="row mt-5" id="noticias">
       <div class="container">
         {% for n in noticias %}
-          <div class="border border-1 row text-center m-5 p-5">
+          <div class=" row text-center mb-3">
             <h2>{{n.titulo}}</h2>
+            <div class="row text-center">
+                <p>{{n.fecha}}</p>
+            </div>
             <p>{{n.contenido|striptags|slice:":40"}}</p>
-            <div class="d-flex justify-content-center mt-3 mb-3">
-              <a href="/new/{{n.id}}" class="btn btn-outline-warning w-25 p-1" >Ver mas</a>
+            <div class="container d-flex justify-content-center mt-3 mb-3">
+              <a href="/new/{{n.id}}" class="btn btn-outline-warning p-1" >Ver mas</a>
             </div>
-            <div class="row">
-              {{n.fecha}}
-            </div>
+            
           </div>
         {% endfor %}
       </div>
     </div>
   </div>
 </section>
-<hr>
 
-
-<!-- Video Popup -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-
-    <div class="modal-content">
-
-      <div class="modal-body">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><svg class="bi" width="40"
-            height="40">
-            <use xlink:href="#close-sharp"></use>
-          </svg></button>
-        <div class="ratio ratio-16x9">
-          <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always" allow="autoplay"></iframe>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</div>
 {% endblock  %}
 
