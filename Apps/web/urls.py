@@ -7,6 +7,7 @@ urlpatterns = [
     path('about/', views.about ),
     path('news/', views.news ),
     path('new/edit/<int:id>', views.edit_news ),
+    path('new/delete/<int:id>', views.delete_new ),
     path('new/<int:id>', views.new ),
     path('santisimacruz/', views.santisimacruz ),
     path('santisimatrinidad/', views.santisimatrinidad ),

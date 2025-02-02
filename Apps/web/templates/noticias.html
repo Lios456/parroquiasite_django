@@ -39,6 +39,9 @@
               <td>{{n.autor}}</td>
               <td>
                   <a href="/new/edit/{{n.id}}" class="btn btn-warning">Editar</a>
+                  <form action="/new/delete/{{n.id}}" method="post">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                  </form>
               </td>
             </tr>
           {% endfor %}
