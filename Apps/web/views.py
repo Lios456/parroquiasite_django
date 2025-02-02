@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
 from django.core.mail import send_mail
-
+from django.contrib.auth import login, logout, authenticate
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -16,7 +17,7 @@ def cambio(request):
     return render(request, 'cambiofiesta.html')
 
 def about(request):
-    return render(request, 'about.php')
+    return render(request, 'about.html')
 
 def news(request):
     context = {
@@ -33,7 +34,7 @@ def news(request):
             return redirect('/news/')
         except Exception as e:
             messages.error(request, f'Error:{e}')
-    return render(request, 'noticias.php', context)
+    return render(request, 'noticias.html', context)
 
 def new(request,id):
     context = {
@@ -57,21 +58,15 @@ def edit_news(request, id):
 
         except Exception as e:
             messages.error(request, f'Error:{e}')
-    return render(request, 'noticias.php', context)
+    return render(request, 'noticias.html', context)
 
-def catequesis(request):
-    return render(request, 'catequesis.php')
 
 def santisimacruz(request):
-    return render(request, 'santisimacruz.php')
+    return render(request, 'santisimacruz.html')
 
 def santisimatrinidad(request):
-    return render(request, 'santisimatrinidad.php')
+    return render(request, 'santisimatrinidad.html')
 
-
-
-from django.core.mail import send_mail
-from django.contrib import messages
 
 def contacto(request):
     if request.method == 'POST':
@@ -156,5 +151,61 @@ def contacto(request):
         except Exception as e:
             messages.error(request, f'Error al enviar el mensaje: {str(e)}')
 
-    return render(request, 'contacto.php')
+    return render(request, 'contacto.html')
 
+
+def login_view(request):
+    context = {}
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            #Autenticar
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                messages.success(request, f'Bienvenido {user}')
+                return redirect('/news/')
+            else:
+                messages.error(request, f"Credenciales incorrectas")
+                return render(request, 'login.html', context)
+        except Exception as e:
+            messages.error(request, f"Error al iniciar sesión: {e}")
+            return render(request, 'login.html', context)
+
+    else:
+        return render(request, 'login.html', context)
+    
+def logout_view(request):
+    try:
+        messages.success(request, f'Adiós {request.user}')
+        logout(request)
+        
+        return redirect('/login/')
+    except Exception as e:
+        messages.error(request, f"Error al cerrar sesión: {e}")
+        return render(request, 'login.html')
+    
+def mensajes(request):
+    mensajes = Mensaje.objects.all().order_by('-id') 
+    paginator = Paginator(mensajes, 5) 
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'mensajes.html', {'page_obj': page_obj})
+
+def eliminar_mensaje(request, id):
+    if request.method == 'POST':
+        mensaje = Mensaje.objects.get(id=id)
+        try:
+            mensaje.delete()
+            messages.success(request, f'Mensaje eliminado')
+            return redirect('/mensajes/')
+        except Exception as e:
+            messages.error(request, f"Error al eliminar el mensaje")
+            return redirect('/mensajes/')
+    
+
+    
