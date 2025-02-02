@@ -40,7 +40,8 @@
               <td>
                   <a href="/new/edit/{{n.id}}" class="btn btn-warning">Editar</a>
                   <form action="/new/delete/{{n.id}}" method="post">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('seguro quieres eliminar esta noticia?')">Eliminar</button>
                   </form>
               </td>
             </tr>
@@ -49,8 +50,6 @@
       </table>
   </div>
 </div>
-<br><br><br><br><br>
-
 
 <script>
   $('#summernote').summernote({
@@ -63,6 +62,54 @@
 
 
 </script>
+
+{% else %}
+<div class="container mt-4">
+  <h2 class="text-center mb-4">📰 Últimas Noticias</h2>
+
+  {% for noticia in noticias %}
+      <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+              <h4 class="card-title">{{ noticia.titulo }}</h4>
+              <h6 class="text-muted">🖊 {{ noticia.autor }} | 📅 {{ noticia.fecha|date:"d M Y" }}</h6>
+              <p class="card-text">{{ noticia.contenido|truncatechars:300|safe }}</p>
+              <a href="/new/{{noticia.id}}" class="btn btn-primary">Leer más</a>
+          </div>
+      </div>
+  {% empty %}
+      <p class="text-center">No hay noticias disponibles.</p>
+  {% endfor %}
+
+  <!-- PAGINACIÓN -->
+  <nav>
+      <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+              <li class="page-item">
+                  <a class="page-link" href="?page=1">⏮ Primero</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}">◀ Anterior</a>
+              </li>
+          {% endif %}
+
+          <li class="page-item disabled">
+              <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+          </li>
+
+          {% if page_obj.has_next %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente ▶</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última ⏭</a>
+              </li>
+          {% endif %}
+      </ul>
+  </nav>
+</div>
+
 {% endif %}
+
+
 
 {% endblock  %}
