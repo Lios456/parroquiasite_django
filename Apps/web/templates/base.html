@@ -8,12 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Validacion del jquery y jqueryValidation-->
-    
+
 
     <link href="{% static 'images/main-logo.ico' %}" rel="icon">
 
     <!-- ================================================== Bootstrap ================================================== -->
     <link rel="stylesheet" type="text/css" href="{% static 'css\bootstrap.min.css' %}">
+
 
     <!-- ================================================== vendor css ================================================== -->
     <link rel="stylesheet" type="text/css" href="{% static 'css\vendor.css' %}">
@@ -64,7 +65,7 @@
                     <li class="phone text-black fw-medium text-capitalize d-flex align-items-center ms-4">
                         <svg class="text-primary me-1" width="20" height="20">
                             <use xlink:href="#phone"></use>
-                        </svg> Teléfono:
+                        </svg> Teléfono: 0999241534
                     </li>
                     <li class="time text-black fw-medium text-capitalize d-flex align-items-center ms-4">
                         <svg class="text-primary me-1" width="20" height="20">
@@ -111,11 +112,9 @@
                                     <use xlink:href="#arrow-down"></use>
                                 </svg></a>
                             <ul class="dropdown-menu dropdown-menu-end animate slide mt-3 border-0 shadow">
-                                <li><a href="/santisimacruz/"
-                                        class="dropdown-item">Santísima Cruz </a>
+                                <li><a href="/santisimacruz/" class="dropdown-item">Santísima Cruz </a>
                                 </li>
-                                <li><a href="/santisimatrinidad/"
-                                        class="dropdown-item">Santísima Trinidad </a>
+                                <li><a href="/santisimatrinidad/" class="dropdown-item">Santísima Trinidad </a>
                                 </li>
                             </ul>
                         </li>
@@ -128,10 +127,22 @@
                         <li class="nav-item px-3 py-1 py-lg-0">
                             <a class="nav-link p-0" href="/contacto/">Contacto</a>
                         </li>
+
+                        {% if user.is_authenticated %}
                         <li class="nav-item px-3 py-1 py-lg-0">
-                            <a class="nav-link p-0" href="/admin/">Ingresar</a>
+                            <a class="nav-link p-0" href="/mensajes/">Mensajes</a>
                         </li>
-                        
+                        <li class="nav-item px-3 py-1 py-lg-0"></li>
+                        <a class="nav-link p-0" href="/logout/">Salir</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item px-3 py-1 py-lg-0"></li>
+                        <a class="nav-link p-0" href="/login/">Ingresar</a>
+                        </li>
+                        {% endif %}
+
+
+
                     </ul>
                 </div>
             </div>
@@ -292,7 +303,7 @@
             <div class="col-lg-3 col-md-6 pb-3">
                 <div class="footer-menu">
                     <a class="navbar-brand" href="index.html">
-                        <img src="{% static 'images/main-logo.png' %}" class="logo img-fluid">
+                        <img src="{% static 'images/main-logo.png' %}" class="logo img-fluid img w-50">
                     </a>
                 </div>
             </div>
@@ -303,66 +314,55 @@
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="16" height="16">
                                 <use xlink:href="#check-circle"></use>
-                            </svg><a href="#"> Jueves 18:00 </a>
+                            </svg>Jueves 18:00
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="16" height="16">
                                 <use xlink:href="#check-circle"></use>
-                            </svg><a href="#"> Sábado 18:00 </a>
+                            </svg>Sábado 18:00
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="16" height="16">
                                 <use xlink:href="#check-circle"></use>
-                            </svg><a href="#"> Domingo 8:00 </a>
+                            </svg>Domingo 8:00
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="16" height="16">
                                 <use xlink:href="#check-circle"></use>
-                            </svg><a href="#"> Domingo 10:00 </a>
+                            </svg>Domingo 10:00
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="16" height="16">
                                 <use xlink:href="#check-circle"></use>
-                            </svg><a href="#"> Domingo 18:00 </a>
+                            </svg>Domingo 18:00
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 pb-3">
-                <div class="footer-menu">
-                    <h5 class=" widget-title py-2 mt-3 fw-semibold">Otra secciones</h5>
-                    <ul class="menu-list d-flex flex-column list-unstyled">
-                        <li class="fw-medium text-capitalize d-flex align-items-center">
-                            <svg class="text-primary me-1" width="16" height="16">
-                                <use xlink:href="#check-circle"></use>
-                            </svg><a href="#">Comunidad Juvenil</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 pb-3">
+
+            <div class="col-lg-3 col-md-6">
                 <div class="footer-menu">
                     <h5 class=" widget-title py-2 mt-3 fw-semibold">Contáctanos</h5>
                     <ul class="menu-list d-flex flex-column list-unstyled">
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="18" height="18">
                                 <use xlink:href="#location"></use>
-                            </svg><a href="#"> Latacunga, Cotopaxi </a>
+                            </svg>Latacunga, Cotopaxi
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="18" height="18">
                                 <use xlink:href="#email"></use>
-                            </svg><a href="#"> csantana@uc.cl </a>
+                            </svg>santisimatrinidad@gmail.com
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="18" height="18">
                                 <use xlink:href="#phone"></use>
-                            </svg><a href="#"> 0999241534 </a>
+                            </svg>0999241534
                         </li>
                         <li class="fw-medium text-capitalize d-flex align-items-center">
                             <svg class="text-primary me-1" width="18" height="18">
                                 <use xlink:href="#clock"></use>
-                            </svg><a href="#"> 09:00-11:00 y 15:00-17:00 de Lunes a Viernes</a>
+                            </svg>09:00-11:00 y 15:00-17:00 de Lunes a Viernes
                         </li>
                     </ul>
                 </div>
@@ -388,6 +388,7 @@
         </div>
     </div>
 </footer>
+
 <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
 <script src="{% static 'js/jquery.validate.js' %}"></script>
 <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
@@ -401,14 +402,81 @@
 <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
     new DataTable('.jquery', {
-      layout: {
-          topStart: {
-              buttons: ['copy', 'excel', 'pdf', 'colvis']
-          }
-      }
-  });
+        layout: {
+            topStart: {
+                buttons: ['copy', 'excel', 'pdf', 'colvis']
+            }
+        }
+    });
+</script>
+
+<script>
+    $("#form_contacto").validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 3,
+                letras: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            phone: {
+                required: true,
+                digits: true,
+                minlength: 7,
+                maxlength: 15
+            },
+            address: {
+                required: true,
+                minlength: 5
+            },
+            message: {
+                required: true,
+                minlength: 10
+            }
+        },
+        messages: {
+            name: {
+                required: "Por favor, ingresa tu nombre completo.",
+                minlength: "El nombre debe tener al menos 3 caracteres."
+            },
+            email: {
+                required: "Por favor, ingresa tu correo electrónico.",
+                email: "Ingresa un correo válido."
+            },
+            phone: {
+                required: "Por favor, ingresa tu número de teléfono.",
+                digits: "Solo se permiten números.",
+                minlength: "El teléfono debe tener al menos 7 dígitos.",
+                maxlength: "El teléfono no debe superar los 15 dígitos."
+            },
+            address: {
+                required: "Por favor, ingresa tu dirección.",
+                minlength: "La dirección debe tener al menos 5 caracteres."
+            },
+            message: {
+                required: "Por favor, ingresa un mensaje.",
+                minlength: "El mensaje debe tener al menos 10 caracteres."
+            }
+        },
+        errorElement: "div",
+        errorPlacement: function (error, element) {
+            error.addClass("text-danger mt-1");
+            error.insertAfter(element);
+        }
+    });
+
+    // Método para validar solo letras
+    jQuery.validator.addMethod("letras", function (value, element) {
+        return this.optional(element) || /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]*$/.test(value);
+    }, "Este campo solo acepta letras.");
 </script>
 
 <script>
@@ -447,5 +515,11 @@
     {% endfor %}
     {% endif %}
 </script>
+
+<style>
+    .text-justify {
+        text-align: justify;
+    }
+</style>
 
 </html>

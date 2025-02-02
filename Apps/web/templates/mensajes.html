@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">📩 Mensajes Recibidos</h2>
+    
+    {% for mensaje in page_obj %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ mensaje.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ mensaje.email }} | 📞 {{ mensaje.phone }}</h6>
+                <p class="card-text"><strong>📍 Dirección:</strong> {{ mensaje.address }}</p>
+                <p class="card-text">📝 {{ mensaje.message }}</p>
+                <form action="/mensajes/eliminar/{{mensaje.id}}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Seguro deseas eliminar el mensaje?')">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-center">No hay mensajes disponibles.</p>
+    {% endfor %}
+
+    <!-- PAGINACIÓN -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">⏮ Primero</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">◀ Anterior</a>
+                </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente ▶</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última ⏭</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock  %}
+
+
+
