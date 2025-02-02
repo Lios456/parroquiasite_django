@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from .models import *
 from django.core.mail import send_mail
@@ -20,9 +20,6 @@ def about(request):
     return render(request, 'about.html')
 
 def news(request):
-    context = {
-        'noticias': Noticia.objects.all().order_by('-fecha')
-    }
     if request.method == 'POST':
         try:
             n = Noticia()
@@ -34,11 +31,21 @@ def news(request):
             return redirect('/news/')
         except Exception as e:
             messages.error(request, f'Error:{e}')
+
+    noticias = Noticia.objects.all().order_by('-fecha')  # Ordenar por la más reciente
+    paginator = Paginator(noticias, 5)  # 5 noticias por página
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'noticias': page_obj
+    }
     return render(request, 'noticias.html', context)
 
 def new(request,id):
     try:
-        noticia = Noticia.objects.get(id=id)
+        noticia = get_object_or_404(Noticia, id=id)
         context = {
             'noticia': noticia
         }
@@ -52,6 +59,7 @@ def delete_new(request,id):
         try:
             noticia = Noticia.objects.get(id=id)
             noticia.delete()
+            messages.success(request, 'Noticia eliminada con éxito')
             return redirect('/news/')
         except:
             messages.error(request, "No existe ninguna noticia")
