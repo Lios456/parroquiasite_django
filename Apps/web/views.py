@@ -47,7 +47,15 @@ def new(request,id):
         messages.error(request, "No existe ninguna noticia")
         return redirect('/news/')
 
-   
+def delete_new(request,id):
+    if request.method == 'POST':
+        try:
+            noticia = Noticia.objects.get(id=id)
+            noticia.delete()
+            return redirect('/news/')
+        except:
+            messages.error(request, "No existe ninguna noticia")
+            return redirect('/news/')
 
 def edit_news(request, id):
     noti = Noticia.objects.get(id=id)
