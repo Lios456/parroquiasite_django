@@ -6,16 +6,16 @@
   <h1 class="h1">Nueva Noticia</h1>
 </center>
 <div class="container-lg d-flex justify-content-center">
-  <form method="post" name="noticiaform">
+  <form method="post" name="noticiaform" class="w-100">
     {% csrf_token %}
-    <div class="row m-3">
-      <input type="text" class="form-control" name="titulo" placeholder="Título" required value="{{n.titulo}}">
+    <div class="row d-flex justify-content-center">
+      <input type="text" class="form-control col-12 col-md-6" name="titulo" placeholder="Título" required value="{{n.titulo}}">
     </div>
-    <div class="container m-3">
-      <textarea id="summernote" name="detalle" required>{{n.contenido}}</textarea>
+    <div class="row d-flex justify-content-center">
+      <textarea id="summernote" name="detalle" class="col-12 col-md-6" required>{{n.contenido}}</textarea>
     </div>
 
-    <button type="submit" class="btn btn-success">Guardar</button>
+    <button type="submit" class="btn btn-success mt-3">Guardar</button>
   </form>
 </div>
 <div class="container-lg d-flex justify-content-center">
@@ -65,11 +65,9 @@
     placeholder: 'Escribe aquí tu noticia',
     tabsize: 2,
     height: 500,
-    width: 1000,
-    lan: 'es-ES'
+    width: '100%',
+    lang: 'es-ES'
   });
-
-
 </script>
 
 {% else %}
