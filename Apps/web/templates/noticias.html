@@ -72,7 +72,7 @@
           <div class="card-body">
               <h4 class="card-title">{{ noticia.titulo }}</h4>
               <h6 class="text-muted">🖊 {{ noticia.autor }} | 📅 {{ noticia.fecha|date:"d M Y" }}</h6>
-              <p class="card-text">{{ noticia.contenido|truncatechars:40|striptags }}</p>
+              <p class="card-text">{{ noticia.contenido|striptags|truncatechars:40 }}</p>
               <a href="/new/{{noticia.id}}" class="btn btn-primary">Leer más</a>
           </div>
       </div>
