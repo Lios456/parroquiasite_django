@@ -15,4 +15,9 @@ urlpatterns = [
     path('logout/', views.logout_view),
     path('mensajes/', views.mensajes),
     path('mensajes/eliminar/<int:id>', views.eliminar_mensaje),
+
+    path('personas/', views.PersonaListView.as_view(), name='persona_list'),
+    path('personas/nuevo/', views.PersonaCreateView.as_view(), name='persona_create'),
+    path('personas/<int:pk>/editar/', views.PersonaUpdateView.as_view(), name='persona_update'),
+    path('personas/<int:pk>/eliminar/', views.PersonaDeleteView.as_view(), name='persona_delete'),
 ]

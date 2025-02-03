@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h1>Lista de Personas</h1>
+    <a href="{% url 'persona_create' %}" class="btn btn-primary mb-3">Nueva Persona</a>
+</div>
+<div class="container table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Dirección</th>
+                <th>Celular</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for persona in personas %}
+            <tr>
+                <td>{{ persona.nombres }}</td>
+                <td>{{ persona.apellido1 }} {{ persona.apellido2 }}</td>
+                <td>{{ persona.direccion }}</td>
+                <td>{{ persona.celular }}</td>
+                <td>{{ persona.email }}</td>
+                <td>
+                    <a href="{% url 'persona_update' persona.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'persona_delete' persona.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

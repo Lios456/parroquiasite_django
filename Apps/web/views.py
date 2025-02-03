@@ -5,6 +5,9 @@ from django.core.mail import send_mail
 from django.contrib.auth import login, logout, authenticate
 from django.core.paginator import Paginator
 
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+
 # Create your views here.
 
 def index(request):
@@ -231,4 +234,34 @@ def eliminar_mensaje(request, id):
             return redirect('/mensajes/')
     
 
-    
+
+"""
+CRUD PARA PERSONAS
+"""
+class PersonaListView(ListView):
+    model = Persona
+    template_name = 'persona_list.html'
+    context_object_name = 'personas'
+
+class PersonaCreateView(CreateView):
+    model = Persona
+    form_class = PersonaForm
+    template_name = 'persona_form.html'
+    success_url = reverse_lazy('persona_list')
+
+class PersonaUpdateView(UpdateView):
+    model = Persona
+    form_class = PersonaForm
+    template_name = 'persona_form.html'
+    success_url = reverse_lazy('persona_list')
+
+class PersonaDeleteView(DeleteView):
+    model = Persona
+    template_name = 'persona_confirm_delete.html'
+    success_url = reverse_lazy('persona_list')
+
+
+
+"""
+CRUD PARA CATEQUESIS
+"""

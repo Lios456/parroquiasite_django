@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h1>{% if object %}Editar{% else %}Crear{% endif %} Persona</h1>
+    <form method="post" id="personaForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'persona_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#personaForm').validate({
+            rules: {
+                apellido1: 'required',
+                apellido2: 'required',
+                nombres: 'required',
+                direccion: 'required',
+                celular: {
+                    required: true,
+                    digits: true,
+                    minlength: 9,
+                    maxlength: 15
+                },
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                apellido1: 'Por favor ingrese el primer apellido',
+                apellido2: 'Por favor ingrese el segundo apellido',
+                nombres: 'Por favor ingrese los nombres',
+                direccion: 'Por favor ingrese la dirección',
+                celular: {
+                    required: 'Por favor ingrese el número celular',
+                    digits: 'Solo se permiten números',
+                    minlength: 'Mínimo 9 dígitos',
+                    maxlength: 'Máximo 15 dígitos'
+                },
+                email: {
+                    required: 'Por favor ingrese el correo electrónico',
+                    email: 'Ingrese un correo válido'
+                }
+            },
+            errorClass: "is-invalid",
+            validClass: "is-valid",
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass(errorClass).addClass(validClass);
+            }
+        });
+    });
+</script>
+{% endblock %}
