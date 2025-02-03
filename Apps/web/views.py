@@ -8,6 +8,9 @@ from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
 def index(request):
@@ -57,6 +60,7 @@ def new(request,id):
         messages.error(request, "No existe ninguna noticia")
         return redirect('/news/')
 
+@login_required(login_url='/login/')
 def delete_new(request,id):
     if request.method == 'POST':
         try:
@@ -68,6 +72,7 @@ def delete_new(request,id):
             messages.error(request, "No existe ninguna noticia")
             return redirect('/news/')
 
+@login_required(login_url='/login/')
 def edit_news(request, id):
     noti = Noticia.objects.get(id=id)
     context = {
@@ -92,7 +97,6 @@ def santisimacruz(request):
 
 def santisimatrinidad(request):
     return render(request, 'santisimatrinidad.html')
-
 
 def contacto(request):
     if request.method == 'POST':
@@ -212,7 +216,8 @@ def logout_view(request):
     except Exception as e:
         messages.error(request, f"Error al cerrar sesión: {e}")
         return render(request, 'login.html')
-    
+
+@login_required(login_url='/login/')
 def mensajes(request):
     mensajes = Mensaje.objects.all().order_by('-id') 
     paginator = Paginator(mensajes, 5) 
@@ -222,6 +227,7 @@ def mensajes(request):
 
     return render(request, 'mensajes.html', {'page_obj': page_obj})
 
+@login_required(login_url='/login/')
 def eliminar_mensaje(request, id):
     if request.method == 'POST':
         mensaje = Mensaje.objects.get(id=id)
@@ -263,5 +269,6 @@ class PersonaDeleteView(DeleteView):
 
 
 """
-CRUD PARA CATEQUESIS
+CRUD PARA Usuarios
 """
+
