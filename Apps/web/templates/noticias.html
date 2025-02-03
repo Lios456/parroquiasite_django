@@ -61,30 +61,12 @@
 </div>
 
 <script>
-  $(document).ready(function() {
-    $('#summernote').summernote({
-      placeholder: 'Escribe aquí tu noticia',
-      tabsize: 2,
-      height: 500,
-      lang: 'es-ES',
-      callbacks: {
-        onImageUpload: function(files) {
-          var editor = $(this);
-          var file = files[0];
-
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            
-            var image = $('<img>').attr('src', e.target.result);
-
-            image.addClass('img-fluid');
-
-            editor.summernote('insertNode', image[0]);
-          };
-          reader.readAsDataURL(file);
-        }
-      }
-    });
+  $('#summernote').summernote({
+    placeholder: 'Escribe aquí tu noticia',
+    tabsize: 2,
+    height: 500,
+    width: '100%',
+    lang: 'es-ES'
   });
 </script>
 
