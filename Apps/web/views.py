@@ -9,7 +9,9 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.admin.views.decorators import staff_member_required
+
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -61,6 +63,7 @@ def new(request,id):
         return redirect('/news/')
 
 @login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
 def delete_new(request,id):
     if request.method == 'POST':
         try:
@@ -73,6 +76,7 @@ def delete_new(request,id):
             return redirect('/news/')
 
 @login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
 def edit_news(request, id):
     noti = Noticia.objects.get(id=id)
     context = {
@@ -97,6 +101,40 @@ def santisimacruz(request):
 
 def santisimatrinidad(request):
     return render(request, 'santisimatrinidad.html')
+
+
+def login_view(request):
+    context = {}
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            #Autenticar
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                messages.success(request, f'Bienvenido {user}')
+                return redirect('/news/')
+            else:
+                messages.error(request, f"Credenciales incorrectas")
+                return render(request, 'login.html', context)
+        except Exception as e:
+            messages.error(request, f"Error al iniciar sesión: {e}")
+            return render(request, 'login.html', context)
+
+    else:
+        return render(request, 'login.html', context)
+    
+def logout_view(request):
+    try:
+        messages.success(request, f'Adiós {request.user}')
+        logout(request)
+        
+        return redirect('/login/')
+    except Exception as e:
+        messages.error(request, f"Error al cerrar sesión: {e}")
+        return render(request, 'login.html')
 
 def contacto(request):
     if request.method == 'POST':
@@ -183,41 +221,8 @@ def contacto(request):
 
     return render(request, 'contacto.html')
 
-
-def login_view(request):
-    context = {}
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        try:
-            #Autenticar
-            user = authenticate(request, username=username, password=password)
-            if user:
-                login(request, user)
-                messages.success(request, f'Bienvenido {user}')
-                return redirect('/news/')
-            else:
-                messages.error(request, f"Credenciales incorrectas")
-                return render(request, 'login.html', context)
-        except Exception as e:
-            messages.error(request, f"Error al iniciar sesión: {e}")
-            return render(request, 'login.html', context)
-
-    else:
-        return render(request, 'login.html', context)
-    
-def logout_view(request):
-    try:
-        messages.success(request, f'Adiós {request.user}')
-        logout(request)
-        
-        return redirect('/login/')
-    except Exception as e:
-        messages.error(request, f"Error al cerrar sesión: {e}")
-        return render(request, 'login.html')
-
 @login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
 def mensajes(request):
     mensajes = Mensaje.objects.all().order_by('-id') 
     paginator = Paginator(mensajes, 5) 
@@ -228,6 +233,7 @@ def mensajes(request):
     return render(request, 'mensajes.html', {'page_obj': page_obj})
 
 @login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
 def eliminar_mensaje(request, id):
     if request.method == 'POST':
         mensaje = Mensaje.objects.get(id=id)
@@ -244,6 +250,7 @@ def eliminar_mensaje(request, id):
 """
 CRUD PARA PERSONAS
 """
+
 class PersonaListView(ListView):
     model = Persona
     template_name = 'persona_list.html'
@@ -269,6 +276,69 @@ class PersonaDeleteView(DeleteView):
 
 
 """
-CRUD PARA Usuarios
+RESERVA DE MISAS
 """
+@login_required(login_url='/login/')
+def solicitar_misa(request):
+    if request.method == 'POST':
+        form = ReservaMisaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.usuario = request.user  # Asignamos el usuario logueado
+            reserva.save()
+            # 📧 Enviar correo al usuario
+            subject_user = "Confirmación de tu solicitud de Misa"
+            body_user = f"""
+            Hola {request.user.username},
+
+            Hemos recibido tu solicitud y nos pondremos en contacto contigo lo antes posible.
+
+            Detalles de tu mensaje:
+            -----------------------
+            Fecha: {reserva.fecha}
+            Hora: {reserva.hora}
+            Intenciones: {reserva.intenciones}
+
+            Gracias por contactarnos.
+
+            Atentamente,
+            Santísima Trinidad La Laguna
+            """
+
+            send_mail(
+                subject_user,
+                body_user,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                [request.user.email],  # Destinatario: usuario que llenó el formulario
+                fail_silently=False,
+            )
+            messages.success(request, 'Tu solicitud de misa ha sido enviada con éxito, revisa tu correo')
+            return redirect('/')
+        else:
+            messages.error(request, 'Hubo un error al enviar tu solicitud. Inténtalo de nuevo.')
+    else:
+        form = ReservaMisaForm()
+
+    return render(request, 'solicitar_misa.html', {'form': form})
+
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def ver_solicitudes(request):
+    reservas = ReservaMisa.objects.all()
+    return render(request, 'ver_solicitudes.html', {'reservas': reservas})
+
+
+def registro(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)  # Usar el formulario personalizado
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cuenta creada exitosamente. Puedes iniciar sesión.')
+            return redirect('/login/')
+        else:
+            messages.error(request, 'Hubo un error en el registro. Intenta nuevamente.')
+    else:
+        form = CustomUserCreationForm()
+
+    return render(request, 'registro.html', {'form': form})
 

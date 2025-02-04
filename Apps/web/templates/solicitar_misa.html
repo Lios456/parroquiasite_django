@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div class="container">
+    <div class="form-container">
+        <h3 class="text-center">Solicitar Misa</h3>
+        <form id="reservaMisaForm" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" min="{{ current_date }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="hora" class="form-label">Hora</label>
+                <input type="time" class="form-control" id="hora" name="hora" required>
+            </div>
+            <div class="mb-3">
+                <label for="intenciones" class="form-label">Intenciones</label>
+                <textarea class="form-control" id="intenciones" name="intenciones" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Enviar Solicitud</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+<script>
+    $.validator.addMethod("timeRange", function (value, element) {
+        const [inputHours, inputMinutes] = value.split(':').map(Number);
+        const minTime = 6 * 60;   // 6:00 AM en minutos
+        const maxTime = 21 * 60;  // 9:00 PM en minutos
+        const totalMinutes = inputHours * 60 + inputMinutes;
+
+        return totalMinutes >= minTime && totalMinutes <= maxTime;
+    });
+
+    $(document).ready(function () {
+        $.validator.addMethod("timeRange", function (value, element) {
+            if (!value) return true;
+            const [inputHours, inputMinutes] = value.split(':').map(Number);
+            const minTime = 6 * 60;
+            const maxTime = 21 * 60;
+            const totalMinutes = inputHours * 60 + (inputMinutes || 0);
+            return totalMinutes >= minTime && totalMinutes <= maxTime;
+        });
+
+        $("#reservaMisaForm").validate({
+            rules: {
+                fecha: {
+                    required: true,
+                    date: true,
+                    min: new Date().toISOString().split('T')[0]
+                },
+                hora: {
+                    required: true,
+                    timeRange: true
+                },
+                intenciones: {
+                    required: true,
+                    minlength: 10
+                }
+            },
+            messages: {
+                fecha: {
+                    required: "Por favor, ingresa la fecha.",
+                    min: "La fecha no puede ser anterior al día de hoy."
+                },
+                hora: {
+                    required: "Por favor, ingresa la hora.",
+                    timeRange: "El horario debe ser entre 6:00 AM y 9:00 PM"
+                },
+                intenciones: {
+                    required: "Por favor, describe las intenciones.",
+                    minlength: "Mínimo 10 caracteres"
+                }
+            },
+            errorElement: "div",
+            errorClass: "invalid-feedback",
+            validClass: "is-valid",
+            errorPlacement: function (error, element) {
+                error.addClass("invalid-feedback");
+                element.closest('.mb-3').append(error);
+            },
+            highlight: function (element) {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    });
+</script>
+
+{% endblock %}

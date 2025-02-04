@@ -1,0 +1,28 @@
+<!-- ver_solicitudes.html -->
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>Solicitudes de Misa</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Intenciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva.usuario.username }}</td>
+                <td>{{ reserva.fecha }}</td>
+                <td>{{ reserva.hora }}</td>
+                <td>{{ reserva.intenciones }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
