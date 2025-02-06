@@ -158,6 +158,9 @@ a:hover {
   background-color: var(--bs-gray-100) !important;
 }
 
+.custom-bg {
+  background-color: #05213c !important; /* Azul oscuro */
+}
 
 /*--------------------------------------------------------------
 /** 2.3 Section
