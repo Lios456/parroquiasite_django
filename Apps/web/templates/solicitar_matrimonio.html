@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div class="container">
+    <div class="form-container">
+        <h3 class="text-center">Solicitar Matrimonio</h3>
+        <form id="matrimonioForm" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" min="{{ current_date }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="hora" class="form-label">Hora</label>
+                <input type="time" class="form-control" id="hora" name="hora" required>
+            </div>
+            <div class="mb-3">
+                <label for="nombre_novio" class="form-label">Nombre del Novio</label>
+                <input type="text" class="form-control" id="nombre_novio" name="nombre_novio" required>
+            </div>
+            <div class="mb-3">
+                <label for="nombre_novia" class="form-label">Nombre de la Novia</label>
+                <input type="text" class="form-control" id="nombre_novia" name="nombre_novia" required>
+            </div>
+            <div class="mb-3">
+                <label for="padrinos" class="form-label">Padrinos</label>
+                <input type="text" class="form-control" id="padrinos" name="padrinos" required>
+            </div>
+            <div class="mb-3">
+                <label for="observaciones" class="form-label">Observaciones</label>
+                <textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Enviar Solicitud</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+<script>
+    $.validator.addMethod("timeRange", function (value, element) {
+        const [inputHours, inputMinutes] = value.split(':').map(Number);
+        const minTime = 6 * 60;   // 6:00 AM en minutos
+        const maxTime = 21 * 60;  // 9:00 PM en minutos
+        const totalMinutes = inputHours * 60 + inputMinutes;
+
+        return totalMinutes >= minTime && totalMinutes <= maxTime;
+    });
+
+    $.validator.addMethod("dateAhead", function (value, element) {
+        const inputDate = new Date(value);
+        const currentDate = new Date();
+        const minDate = new Date(currentDate.setDate(currentDate.getDate() + 7));
+
+        return inputDate >= minDate;
+    });
+
+    $(document).ready(function () {
+        $("#matrimonioForm").validate({
+            rules: {
+                fecha: {
+                    required: true,
+                    date: true,
+                    dateAhead: true
+                },
+                hora: {
+                    required: true,
+                    timeRange: true
+                },
+                nombre_novio: {
+                    required: true,
+                    minlength: 2
+                },
+                nombre_novia: {
+                    required: true,
+                    minlength: 2
+                },
+                padrinos: {
+                    required: true,
+                    minlength: 2
+                }
+            },
+            messages: {
+                fecha: {
+                    required: "Por favor, ingresa la fecha.",
+                    dateAhead: "La fecha debe tener al menos una semana de anticipación."
+                },
+                hora: {
+                    required: "Por favor, ingresa la hora.",
+                    timeRange: "El horario debe ser entre 6:00 AM y 9:00 PM"
+                },
+                nombre_novio: {
+                    required: "Por favor, ingresa el nombre del novio.",
+                    minlength: "Mínimo 2 caracteres"
+                },
+                nombre_novia: {
+                    required: "Por favor, ingresa el nombre de la novia.",
+                    minlength: "Mínimo 2 caracteres"
+                },
+                padrinos: {
+                    required: "Por favor, ingresa el nombre de los padrinos.",
+                    minlength: "Mínimo 2 caracteres"
+                }
+            },
+            errorElement: "div",
+            errorClass: "invalid-feedback",
+            validClass: "is-valid",
+            errorPlacement: function (error, element) {
+                error.addClass("invalid-feedback");
+                element.closest('.mb-3').append(error);
+            },
+            highlight: function (element) {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    });
+</script>
+
+{% endblock %}

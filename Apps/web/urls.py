@@ -23,5 +23,11 @@ urlpatterns = [
 
     path('solicitar-misa/', views.solicitar_misa, name='solicitar_misa'),
     path('ver-solicitudes/', views.ver_solicitudes, name='ver_solicitudes'),
-    path('registro/', views.registro, name='registro')
+    path('registro/', views.registro, name='registro'),
+    
+    path('solicitar-bautizo/', views.solicitar_bautizo, name='solicitar_bautizo'),
+    path('ver-solicitudes-bautizos/', views.ver_solicitudes_bautizos, name='ver_solicitudes_bautizos'),
+    
+    path('solicitar-matrimonio/', views.solicitar_matrimonio, name='solicitar_matrimonio'),
+    path('ver-solicitudes-matrimonios/', views.ver_solicitudes_matrimonios, name='ver_solicitudes_matrimonios')
 ]

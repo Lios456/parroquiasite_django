@@ -342,3 +342,108 @@ def registro(request):
 
     return render(request, 'registro.html', {'form': form})
 
+
+@login_required(login_url='/login/')
+def solicitar_bautizo(request):
+    if request.method == 'POST':
+        form = BautizoForm(request.POST)
+        if form.is_valid():
+            bautizo = form.save(commit=False)
+            bautizo.usuario = request.user  # Asignamos el usuario logueado
+            bautizo.save()
+            # 📧 Enviar correo al usuario
+            subject_user = "Confirmación de tu solicitud de Bautizo"
+            body_user = f"""
+            Hola {request.user.username},
+
+            Hemos recibido tu solicitud de bautizo y nos pondremos en contacto contigo lo antes posible.
+
+            Detalles de tu solicitud:
+            -------------------------
+            Fecha: {bautizo.fecha}
+            Hora: {bautizo.hora}
+            Nombre del Niño/Niños: {bautizo.nombre_nino}
+            Nombre del Padre: {bautizo.nombre_padre}
+            Nombre de la Madre: {bautizo.nombre_madre}
+            Padrinos: {bautizo.padrinos}
+            Observaciones: {bautizo.observaciones}
+
+            Gracias por contactarnos.
+
+            Atentamente,
+            Santísima Trinidad La Laguna
+            """
+
+            send_mail(
+                subject_user,
+                body_user,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                [request.user.email],  # Destinatario: usuario que llenó el formulario
+                fail_silently=False,
+            )
+            messages.success(request, 'Tu solicitud de bautizo ha sido enviada con éxito, revisa tu correo')
+            return redirect('/')
+        else:
+            messages.error(request, 'Hubo un error al enviar tu solicitud. Inténtalo de nuevo.')
+    else:
+        form = BautizoForm()
+
+    return render(request, 'solicitar_bautizo.html', {'form': form})
+
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def ver_solicitudes_bautizos(request):
+    bautizos = Bautizo.objects.all()
+    return render(request, 'ver_solicitudes_bautizos.html', {'bautizos': bautizos})
+
+@login_required(login_url='/login/')
+def solicitar_matrimonio(request):
+    if request.method == 'POST':
+        form = MatrimonioForm(request.POST)
+        if form.is_valid():
+            matrimonio = form.save(commit=False)
+            matrimonio.usuario = request.user  # Asignamos el usuario logueado
+            matrimonio.save()
+            # 📧 Enviar correo al usuario
+            subject_user = "Confirmación de tu solicitud de Matrimonio"
+            body_user = f"""
+            Hola {request.user.username},
+
+            Hemos recibido tu solicitud de matrimonio y nos pondremos en contacto contigo lo antes posible.
+
+            Detalles de tu solicitud:
+            -------------------------
+            Fecha: {matrimonio.fecha}
+            Hora: {matrimonio.hora}
+            Nombre del Novio: {matrimonio.nombre_novio}
+            Nombre de la Novia: {matrimonio.nombre_novia}
+            Padrinos: {matrimonio.padrinos}
+            Observaciones: {matrimonio.observaciones}
+
+            Gracias por contactarnos.
+
+            Atentamente,
+            Santísima Trinidad La Laguna
+            """
+
+            send_mail(
+                subject_user,
+                body_user,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                [request.user.email],  # Destinatario: usuario que llenó el formulario
+                fail_silently=False,
+            )
+            messages.success(request, 'Tu solicitud de matrimonio ha sido enviada con éxito, revisa tu correo')
+            return redirect('/')
+        else:
+            messages.error(request, 'Hubo un error al enviar tu solicitud. Inténtalo de nuevo.')
+    else:
+        form = MatrimonioForm()
+
+    return render(request, 'solicitar_matrimonio.html', {'form': form})
+
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def ver_solicitudes_matrimonios(request):
+    matrimonios = Matrimonio.objects.all()
+    return render(request, 'ver_solicitudes_matrimonios.html', {'matrimonios': matrimonios})

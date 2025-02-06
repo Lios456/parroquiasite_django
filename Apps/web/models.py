@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-
+from datetime import timedelta
 
 # Create your models here.
 
@@ -92,3 +92,76 @@ class CustomUserCreationForm(UserCreationForm):
             'password1': forms.TextInput(attrs={'class': 'form-control'}),
             'password2': forms.TextInput(attrs={'class': 'form-control'})
         }
+
+"""
+BAUTIZOS
+"""
+class Bautizo(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    hora = models.TimeField()
+    nombre_nino = models.CharField(max_length=200, verbose_name='Nombre del Niño/Niños')
+    nombre_padre = models.CharField(max_length=200, verbose_name='Nombre del Padre')
+    nombre_madre = models.CharField(max_length=200, verbose_name='Nombre de la Madre')
+    padrinos = models.CharField(max_length=200)
+    observaciones = models.TextField(blank=True, null=True)
+
+    def clean(self):
+        # Validar que la fecha no sea anterior a la fecha actual y tenga al menos una semana de anticipación
+        if self.fecha < timezone.now().date():
+            raise ValidationError("La fecha no puede ser anterior a la actual.")
+        if self.fecha < (timezone.now() + timedelta(weeks=1)).date():
+            raise ValidationError("La fecha debe tener al menos una semana de anticipación.")
+
+    def __str__(self):
+        return f"Bautizo - {self.usuario.username} - {self.fecha} {self.hora}"
+
+class BautizoForm(forms.ModelForm):
+    class Meta:
+        model = Bautizo
+        fields = ['fecha', 'hora', 'nombre_nino', 'nombre_padre', 'nombre_madre', 'padrinos', 'observaciones']
+        widgets = {
+            'fecha': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'hora': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
+            'nombre_nino': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre_padre': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre_madre': forms.TextInput(attrs={'class': 'form-control'}),
+            'padrinos': forms.TextInput(attrs={'class': 'form-control'}),
+            'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
+        
+"""
+MATRIMONIOS
+"""
+class Matrimonio(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    hora = models.TimeField()
+    nombre_novio = models.CharField(max_length=200, verbose_name='Nombre del Novio')
+    nombre_novia = models.CharField(max_length=200, verbose_name='Nombre de la Novia')
+    padrinos = models.CharField(max_length=200)
+    observaciones = models.TextField(blank=True, null=True)
+
+    def clean(self):
+        # Validar que la fecha no sea anterior a la fecha actual y tenga al menos una semana de anticipación
+        if self.fecha < timezone.now().date():
+            raise ValidationError("La fecha no puede ser anterior a la actual.")
+        if self.fecha < (timezone.now() + timedelta(weeks=1)).date():
+            raise ValidationError("La fecha debe tener al menos una semana de anticipación.")
+
+    def __str__(self):
+        return f"Matrimonio - {self.usuario.username} - {self.fecha} {self.hora}"
+
+class MatrimonioForm(forms.ModelForm):
+    class Meta:
+        model = Matrimonio
+        fields = ['fecha', 'hora', 'nombre_novio', 'nombre_novia', 'padrinos', 'observaciones']
+        widgets = {
+            'fecha': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'hora': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
+            'nombre_novio': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre_novia': forms.TextInput(attrs={'class': 'form-control'}),
+            'padrinos': forms.TextInput(attrs={'class': 'form-control'}),
+            'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
+    

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>Solicitudes de Matrimonio</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Nombre del Novio</th>
+                <th>Nombre de la Novia</th>
+                <th>Padrinos</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for matrimonio in matrimonios %}
+            <tr>
+                <td>{{ matrimonio.usuario.username }}</td>
+                <td>{{ matrimonio.fecha }}</td>
+                <td>{{ matrimonio.hora }}</td>
+                <td>{{ matrimonio.nombre_novio }}</td>
+                <td>{{ matrimonio.nombre_novia }}</td>
+                <td>{{ matrimonio.padrinos }}</td>
+                <td>{{ matrimonio.observaciones }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
