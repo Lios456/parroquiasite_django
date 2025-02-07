@@ -27,6 +27,18 @@ def cambio(request):
 def about(request):
     return render(request, 'about.html')
 
+def liturgia(request):
+    return render(request, 'liturgia.html')
+
+def calendarios(request):
+    return render(request, 'calendarios.html')
+
+def horarios(request):
+    return render(request, 'horarios.html')
+def sacramentos(request):
+    return render(request, 'sacramentos.html')
+
+
 def news(request):
     if request.method == 'POST':
         try:
