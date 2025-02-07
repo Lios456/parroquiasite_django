@@ -1,14 +1,66 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-<div class="d-flex justify-items-center">
-    <div class="d-flex flex-wrap gap-2">
-        <a href="" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Horarios de Misa</span></a>
-        <a href="" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Calendarios y Celebraciones</span></a>
-        <a href="" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Sacramentos</span></a>
-        <a href="" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Oración</span></a>
-    </div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        padding: 30px;
+    }
+    .oracion {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+    .oracion h2 {
+        color: #8B0000;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .oracion img {
+        width: 200px; /* Ajusta el tamaño de la imagen */
+        display: block;
+        margin: 0 auto 20px;
+        border-radius: 10px;
+    }
+    .oracion p {
+        text-align: justify;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    .menu-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .menu-links a {
+        text-decoration: none;
+        background-color:rgb(16, 61, 109)  ;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+    .menu-links a:hover {
+        background-color: #05213c;
+    }
+</style>
+
+<div class="menu-links">
+    <a href="/horarios/">Horarios de Misa</a>
+    <a href="/calendarios/">Calendarios y Celebraciones</a>
+    <a href="/sacramentos/">Sacramentos</a>
+    <a href="/oracion/">Oración</a>
 </div>
+
 <div class="container">
     <div class="row align-items-center justify-content-center py-4">
         <div class="col-md-10 col-lg-8">
