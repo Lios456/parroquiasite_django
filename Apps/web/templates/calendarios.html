@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+
+<div class="d-flex justify-items-center">
+    <div class="d-flex flex-wrap gap-2">
+        <a href="/horarios/" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Horarios de Misa</span></a>
+        <a href="/calendarios/" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Calendarios y Celebraciones</span></a>
+        <a href="/sacramentos/" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Sacramentos</span></a>
+        <a href="" class="btn btn-primary btn-slide hover-slide-right px-4 py-2"><span>Oración</span></a>
+    </div>
+</div>
+
+<section class="container my-5">
+  <h2 class="text-center mb-4">Calendario de Eventos Litúrgicos</h2>
+
+  <!-- Semana Santa -->
+  <div class="row mb-5">
+    <div class="col-md-4">
+      <img src="{% static 'images/semana_santa.jpg' %}" class="img-fluid rounded" alt="Semana Santa">
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div>
+        <h3>Semana Santa</h3>
+        <p><strong>Fecha:</strong> 13 al 20 de abril de 2025</p>
+        <p>La Semana Santa conmemora la Pasión, Muerte y Resurrección de Jesucristo. En la parroquia, se celebran procesiones, viacrucis y la solemne Vigilia Pascual.</p>
+        <ul>
+          <li><strong>Domingo de Ramos (13 de abril):</strong> Bendición de ramos y procesión.</li>
+          <li><strong>Jueves Santo (17 de abril):</strong> Institución de la Eucaristía y Lavatorio de pies.</li>
+          <li><strong>Viernes Santo (18 de abril):</strong> Celebración de la Pasión y procesión del Santo Sepulcro.</li>
+          <li><strong>Domingo de Resurrección (20 de abril):</strong> Solemne misa de Pascua.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fiesta de la Santísima Trinidad -->
+  <div class="row mb-5">
+    <div class="col-md-4">
+      <img src="{% static 'images/fiesta_santisima_trinidad.jpg' %}" class="img-fluid rounded" alt="Fiesta de la Santísima Trinidad">
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div>
+        <h3>Fiesta de la Santísima Trinidad</h3>
+        <p><strong>Fecha:</strong> Primer domingo después de Pentecostés (8 de junio de 2025)</p>
+        <p>La festividad principal de nuestra parroquia, en honor a la Santísima Trinidad, incluye:</p>
+        <ul>
+          <li><strong>Novenario:</strong> Del 30 de mayo al 7 de junio, con rezo del rosario y eucaristías especiales.</li>
+          <li><strong>Misa Solemne (8 de junio):</strong> Celebrada por el obispo en la iglesia parroquial.</li>
+          <li><strong>Procesión:</strong> Recorrido con la imagen de la Santísima Trinidad por las calles principales.</li>
+          <li><strong>Festival cultural:</strong> Presentaciones artísticas y danzas folclóricas.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navidad -->
+  <div class="row mb-5">
+    <div class="col-md-4">
+      <img src="{% static 'images/navidad.jpeg' %}" class="img-fluid rounded" alt="Navidad">
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div>
+        <h3>Navidad</h3>
+        <p><strong>Fecha:</strong> 25 de diciembre de 2025</p>
+        <p>La Navidad conmemora el nacimiento de Jesús. En la parroquia se realizan diversas actividades:</p>
+        <ul>
+          <li><strong>Novena del Niño Jesús:</strong> Oraciones y cantos desde el 16 hasta el 24 de diciembre.</li>
+          <li><strong>Misa del Gallo (24 de diciembre - 22:00):</strong> Celebración principal de Nochebuena.</li>
+          <li><strong>Misa de Navidad (25 de diciembre - 10:00):</strong> Bendición especial a las familias.</li>
+          <li><strong>Representación del Pesebre:</strong> Con participación de niños de la comunidad.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Santisima Cruz -->
+  <div class="row mb-5">
+    <div class="col-md-4">
+      <img src="{% static 'images/santisima_cruz1.jpg' %}" class="img-fluid rounded" alt="cruz">
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div>
+        <h3>Santisima Cruz</h3>
+        <p><strong>Fecha:</strong> 14 de septiembre de 2025</p>
+        <p>Durante la Misa de la Exaltación de la Cruz, las lecturas y el evangelio enfatizan la importancia de la Cruz en la historia de la salvación.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Día de Todos los Santos -->
+  <div class="row mb-5">
+    <div class="col-md-4">
+      <img src="{% static 'images/todos_santos.jpeg' %}" class="img-fluid rounded" alt="Día de Todos los Santos">
+    </div>
+    <div class="col-md-8 d-flex align-items-center">
+      <div>
+        <h3>Día de Todos los Santos</h3>
+        <p><strong>Fecha:</strong> 1 de noviembre de 2025</p>
+        <p>En Ecuador, se celebra con visitas a los cementerios y la preparación de la tradicional colada morada con guaguas de pan.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+{% endblock %}
