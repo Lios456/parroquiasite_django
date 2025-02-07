@@ -56,27 +56,32 @@
 </head>
 
 <header id="header">
-    <nav class="header-top">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center py-3">
-                <a class="navbar-brand" href="/">
-                    <img src="{% static 'images/main-logo.png' %}" class="logo img-fluid" width="15%">
-                </a>
-                <ul class="info d-flex flex-wrap justify-content-end align-items-center list-unstyled m-0">
-                    <li class="phone text-black fw-medium text-capitalize d-flex align-items-center ms-4">
-                        <svg class="text-primary me-1" width="20" height="20">
-                            <use xlink:href="#phone"></use>
-                        </svg> Teléfono: 0999241534
-                    </li>
-                    <li class="time text-black fw-medium text-capitalize d-flex align-items-center ms-4">
-                        <svg class="text-primary me-1" width="20" height="20">
-                            <use xlink:href="#clock"></use>
-                        </svg> 09:00-11:00 y 15:00-17:00 de Lunes a Viernes
-                    </li>
-                </ul>
+<!-- Topbar Start -->
+<div class="container-fluid custom-bg text-light p-0">
+    <div class="row gx-0 d-none d-lg-flex">
+        <div class="col-lg-7 px-5 text-start">
+            <div class="h-100 d-inline-flex align-items-center me-4">
+                <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                <small>C. Putzalahua 62227</small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center">
+                <small class="far fa-clock text-primary me-2"></small>
+                <small>Lun - Vie : 09.00 - 11.00 Y 15:00-17:00</small>
             </div>
         </div>
-    </nav>
+        <div class="col-lg-5 px-5 text-end">
+            <div class="h-100 d-inline-flex align-items-center me-4">
+                <small class="fa fa-phone-alt text-primary me-2"></small>
+                <small>+593 999241534</small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center mx-n2">
+                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href="https://www.facebook.com/parroquiasantisimatrinidad.lalagunalatacunga"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Topbar End -->
     <nav id="primary-header" class="navbar navbar-expand-lg py-3">
         <div class="container justify-content-end">
             <button class="navbar-toggler d-flex d-lg-none justify-content-end border-0 shadow-none p-0" type="button"
@@ -92,6 +97,9 @@
                 </div>
                 <div class="offcanvas-body align-items-center justify-content-center">
                     <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+                        <a class="navbar-brand" href="/">
+                            <img src="{% static 'images/logo.png' %}" class="logo img-fluid" width="40%">
+                        </a>
                         <li class="nav-item px-5 py-1 py-lg-0">
                             <a href="/cambio/" class="btn btn-primary btn-slide hover-slide-right"
                                 style="width:100%;font-size:12px">
@@ -332,7 +340,7 @@
             <div class="col-lg-3 col-md-6 pb-3">
                 <div class="footer-menu">
                     <a class="navbar-brand" href="/">
-                        <img src="{% static 'images/main-logo.png' %}" class="logo img-fluid img w-50">
+                        <img src="{% static 'images/logo.png' %}" class="logo img-fluid img w-50">
                     </a>
                 </div>
             </div>
