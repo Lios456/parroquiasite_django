@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        padding: 30px;
+    }
+    .oracion {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+    .oracion h2 {
+        color: #8B0000;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .oracion img {
+        width: 200px; /* Ajusta el tamaño de la imagen */
+        display: block;
+        margin: 0 auto 20px;
+        border-radius: 10px;
+    }
+    .oracion p {
+        text-align: justify;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    .menu-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .menu-links a {
+        text-decoration: none;
+        background-color:rgb(16, 61, 109)  ;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+    .menu-links a:hover {
+        background-color: #05213c;
+    }
+</style>
+
+<div class="menu-links">
+    <a href="/horarios/">Horarios de Misa</a>
+    <a href="/calendarios/">Calendarios y Celebraciones</a>
+    <a href="/sacramentos/">Sacramentos</a>
+    <a href="/oracion/">Oración</a>
+</div>
+
+
+
+<section>
+    <div class="container">
+      <div class="row">
+        <h1 class="h1 text-center">Sacramentos</h1>
+        <div class="col-md-6">
+          <h3 class="h3">Bautizmos</h3>
+          <p class="text-justify">El santo Bautismo es el fundamento de toda la vida cristiana, el pórtico de la vida en
+            el espíritu y la
+            puerta que abre el acceso a los otros sacramentos. Por el Bautismo somos liberados del pecado y regenerados
+            como hijos de Dios, llegamos a ser miembros de Cristo y somos incorporados a la Iglesia y hechos partícipes de
+            su misión. Catecismo de la Iglesia Católica, n. 1213</p>
+        </div>
+        <div class="col-md-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnG7AH5UYeTDRt0zImGvkSDyDSLRmNO_9SMg&s"
+            alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnG7AH5UYeTDRt0zImGvkSDyDSLRmNO_9SMg&s"
+            class="img w-100 p-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNp4fQ9imlHpLQVv-UbEvlvuCLfXlwCQdsRg&s"
+            alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNp4fQ9imlHpLQVv-UbEvlvuCLfXlwCQdsRg&s"
+            class="img w-100 p-3">
+        </div>
+        <div class="col-md-6">
+          <h3 class="h3">Confesiones</h3>
+          <p class="text-justify">La confesión es el sacramento en el cual, por medio de la absolución del sacerdote,
+            recibimos el perdón de
+            nuestros pecados si nos confesamos arrepentidos.
+            La sagrada Biblia dice: "Confesáos unos a otros vuestros pecados para que seais salvos". </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="h3">Primera Comunión</h3>
+          <p class="text-justify">La Primera Comunión es la celebración de la Iglesia Católica donde el niño y la niña
+            participan por primera
+            vez en el Sacramento de la Eucaristía, recibiendo la Comunión.
+  
+            La Sagrada Comunión es la presencia de Jesucristo en la Eucaristía, donde le recibimos sacramentado bajo las
+            especies del pan y del vino.
+  
+            Es el mismo Jesucristo vivo, con su cuerpo, sangre, alma y divinidad.
+  
+            Es un encuentro con Él personalmente, quedándose de esta manera, entre nosotros por amor y haciéndonos
+            partícipes de su Pascua.
+  
+            Se le recibe en esta Sagrada Comunión, haciéndose alimento para nuestras almas, aumentando la gracia y
+            dándonos la vida eterna.
+  
+            "Yo soy el pan vivo, bajado del cielo. Si uno come de este pan, vivirá para siempre, y el pan que yo le voy a
+            dar es mi carne por la vida del mundo". (Jn 6, 51).</p>
+        </div>
+        <div class="col-md-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWK60A8Mw0e-wVt1gSbZPi4_CeQF_2dw-H1g&s" alt=""
+            class="img w-100 p-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS97tnf3N3cKcSpCPoT-xNsoGRCdt-2GEmAWQ&s" alt=""
+            class="img w-100 p-3">
+        </div>
+        <div class="col-md-6">
+          <h3 class="h3">Matrimonios</h3>
+          <p class="text-justify">La unión conyugal tiene su origen en Dios, quien al crear al hombre lo hizo una persona que necesita abrirse
+            a los demás, con una necesidad de comunicarse y que necesita compañía. “No está bien que el hombre esté solo,
+            hagámosle una compañera semejante a él.” (Gen. 2, 18). “Dios creó al hombre y a la mujer a imagen de Dios,
+            hombre y mujer los creó, y los bendijo diciéndoles: procread, y multiplicaos, y llenad la tierra y
+            sometedla”.(Gen. 1, 27- 28). Desde el principio de la creación, cuando Dios crea a la primera pareja, la unión
+            entre ambos se convierte en una institución natural, con un vínculo permanente y unidad total (Mt. 19,6). Por
+            lo que no puede ser cambiada en sus fines y en sus características, ya que de hacerlo se iría contra la propia
+            naturaleza del hombre. El matrimonio no es, por tanto, efecto de la casualidad o consecuencia de instintos
+            naturales inconscientes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
