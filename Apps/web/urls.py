@@ -9,6 +9,7 @@ urlpatterns = [
     path('horarios/', views.horarios ),
     path('calendarios/', views.calendarios ),
     path('sacramentos/', views.sacramentos ),
+    path('oracion/', views.oracion ),
     path('news/', views.news ),
     path('new/edit/<int:id>', views.edit_news ),
     path('new/delete/<int:id>', views.delete_new ),

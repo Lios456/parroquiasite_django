@@ -27,6 +27,7 @@ def cambio(request):
 def about(request):
     return render(request, 'about.html')
 
+
 def liturgia(request):
     return render(request, 'liturgia.html')
 
@@ -37,6 +38,9 @@ def horarios(request):
     return render(request, 'horarios.html')
 def sacramentos(request):
     return render(request, 'sacramentos.html')
+
+def oracion(request):
+    return render(request, 'oracion.html')
 
 
 def news(request):
