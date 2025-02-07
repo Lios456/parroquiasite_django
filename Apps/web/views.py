@@ -343,6 +343,9 @@ def registro(request):
     return render(request, 'registro.html', {'form': form})
 
 
+"""
+RESERVA DE BAUTISMOS
+"""
 @login_required(login_url='/login/')
 def solicitar_bautizo(request):
     if request.method == 'POST':

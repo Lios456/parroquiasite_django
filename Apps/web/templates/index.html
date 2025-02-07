@@ -18,49 +18,155 @@
 <!-- SECCIÓN DE PÁRROCOS -->
 <section id="brands" class="padding-small">
   <div class="container">
-    <h6 class="fst-italic text-capitalize mb-4"> Párrocos
-    </h6>
+    <h6 class="fst-italic text-capitalize mb-4">Párrocos</h6>
     <div class="row row-sm">
+      <!-- Mons. Lorenzo Voltolini -->
       <div class="col col-md-4 my-4 text-center">
-        <img src="{% static 'images/parrocos/mon_lorenzo.png' %}" alt="" class="img rounded-circle"
-          style="width: 15rem; height: 15rem;">
-        <p>Mons. Lorenzo Voltonili</p>
+        <img src="{% static 'images/parrocos/mon_lorenzo.png' %}" alt="Mons. Lorenzo Voltolini" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>Mons. Lorenzo Voltolini</p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLorenzo">Ver más</button>
       </div>
+
+      <!-- Mons. Victoriano Naranjo -->
       <div class="col col-md-4 my-4 text-center">
-        <img src="{% static 'images/parrocos/victoriano_naranjo.jpeg' %}" alt="" class="img rounded-circle"
-          style="width: 15rem; height: 15rem;">
+        <img src="{% static 'images/parrocos/victoriano_naranjo.jpeg' %}" alt="Mons. Victoriano Naranjo" class="img rounded-circle" style="width: 15rem; height: 15rem;">
         <p>Mons. Victoriano Naranjo</p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVictoriano">Ver más</button>
       </div>
+
+      <!-- P. Emiliano Jácome -->
       <div class="col col-md-4 my-4 text-center">
-        <img src="{% static 'images/parrocos/p_emiliano.jpeg' %}" alt="" class="img rounded-circle"
-          style="width: 15rem; height: 15rem;">
+        <img src="{% static 'images/parrocos/p_emiliano.jpeg' %}" alt="P. Emiliano Jácome" class="img rounded-circle" style="width: 15rem; height: 15rem;">
         <p>✚ P. Luis Emiliano Jácome ✚</p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEmiliano">Ver más</button>
       </div>
+
+      <!-- P. José Luis Tapia -->
       <div class="col col-md-4 my-4 text-center">
-        <img src="{% static 'images/parrocos/p_jose_luis.jpeg' %}" alt="" class="img rounded-circle"
-          style="width: 15rem; height: 15rem;">
+        <img src="{% static 'images/parrocos/p_jose_luis.jpeg' %}" alt="P. José Luis Tapia" class="img rounded-circle" style="width: 15rem; height: 15rem;">
         <p>P. José Luis Tapia</p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJoseLuis">Ver más</button>
       </div>
+
+      <!-- P. Cristian Santana -->
       <div class="col col-md-4 my-4 text-center">
-        <img src="{% static 'images/parrocos/p_cristian.jpg' %}" alt="" class="img rounded-circle"
-          style="width: 15rem; height: 15rem;">
-        <p>P. Cristian Santana</p>
+        <img src="{% static 'images/parrocos/p_cristian.jpg' %}" alt="P. Cristian Santana" class="img rounded-circle" style="width: 15rem; height: 15rem;">
+        <p>P. Cristian Santana <b>(Parroco Actual)</b></p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCristian">Ver más</button>
       </div>
     </div>
   </div>
+
+  <!-- Vicario -->
   <div class="container">
-    <h6 class="fst-italic text-capitalize mb-4"> Vicario
-    </h6>
+    <h6 class="fst-italic text-capitalize mb-4">Vicario</h6>
     <div class="row">
-      <div class="col my-4">
-        <img src="{% static 'images/parrocos/p_luis_gutierrez.jpeg' %}" alt="" class="img rounded-circle"
-          style="width: 15rem; height: 15rem;">
+      <div class="col my-4 text-center">
+        <img src="{% static 'images/parrocos/p_luis_gutierrez.jpeg' %}" alt="P. Luis Gutiérrez" class="img rounded-circle" style="width: 15rem; height: 15rem;">
         <p>P. Luis Gutiérrez</p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLuis">Ver más</button>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Modales -->
+<!-- Modal Mons. Lorenzo Voltolini -->
+<div class="modal fade" id="modalLorenzo" tabindex="-1" aria-labelledby="modalLorenzoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLorenzoLabel">Mons. Lorenzo Voltolini</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Fecha de llegada:</strong> Julio de 1982.</p>
+        <p><strong>Origen:</strong> Italia.</p>
+        <p><strong>Biografía:</strong> Monseñor Lorenzo Voltolini, conocido cariñosamente como "Taita Lorenzo", llegó a la Diócesis de Latacunga en 1979 y se estableció en La Laguna en julio de 1982. Fue el fundador de la Parroquia Eclesiástica Santísima Trinidad. Durante su gestión, compró los terrenos y construyó la Casa Parroquial, la Iglesia y el Centro de Catequesis, que inicialmente funcionó como un centro de formación artesanal. Organizó las comunidades indígenas rurales y creó el primer grupo de catequistas, liderado por la señora Dolores Herrera, así como el primer grupo juvenil. También trabajó en las comunidades de Santan Grande, Santan Chico, Palopo Centro y Palopo Contadero, entre otras. En Pilligloma, edificó una iglesia en honor a San Luis Gonzaga. Su legado perdura en la estructura física y espiritual de la parroquia.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Mons. Victoriano Naranjo -->
+<div class="modal fade" id="modalVictoriano" tabindex="-1" aria-labelledby="modalVictorianoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVictorianoLabel">Mons. Victoriano Naranjo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Fecha de llegada:</strong> 9 de septiembre de 1995.</p>
+        <p><strong>Biografía:</strong> El Padre Victoriano Naranjo llegó a la parroquia en septiembre de 1995. Durante su tiempo aquí, se enfocó en consolidar el trabajo iniciado por Monseñor Lorenzo, especialmente en la formación de catequistas y el fortalecimiento de las comunidades rurales. Aunque su estilo era más reservado, su dedicación a la oración y su compromiso con la parroquia dejaron una huella significativa.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal P. Emiliano Jácome -->
+<div class="modal fade" id="modalEmiliano" tabindex="-1" aria-labelledby="modalEmilianoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEmilianoLabel">P. Emiliano Jácome</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Fecha de llegada:</strong> 4 de septiembre de 1999.</p>
+        <p><strong>Biografía:</strong> El Padre Emiliano Jácome se caracterizó por su dinamismo y su cercanía con los jóvenes. Durante su gestión, organizó talleres de formación en valores y oficios, y promovió actividades recreativas, como campeonatos de fútbol, para fomentar la unión entre los jóvenes de las comunidades rurales. Su enfoque en la educación y la juventud marcó un antes y un después en la vida parroquial.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal P. José Luis Tapia -->
+<div class="modal fade" id="modalJoseLuis" tabindex="-1" aria-labelledby="modalJoseLuisLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalJoseLuisLabel">P. José Luis Tapia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Fecha de llegada:</strong> 31 de julio de 2014.</p>
+        <p><strong>Biografía:</strong> El Padre José Luis Tapia llegó a la parroquia en julio de 2014. Durante su tiempo aquí, inició la construcción de nuevas aulas para la Catequesis y renovó el piso de la Iglesia. Aunque residía en Salcedo, siempre estuvo comprometido con las necesidades de la comunidad. Su trabajo sentó las bases para las mejoras que llegarían en los años siguientes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal P. Cristian Santana -->
+<div class="modal fade" id="modalCristian" tabindex="-1" aria-labelledby="modalCristianLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCristianLabel">P. Cristian Santana</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Fecha de llegada:</strong> 28 de agosto de 2022.</p>
+        <p><strong>Biografía:</strong> El Padre Cristian Santana llegó a la parroquia en agosto de 2022 y se destacó por su enfoque práctico y resolutivo. Realizó una remodelación completa de la Catequesis, arreglando aulas, baños y pisos, e implementando espacios dedicados a diferentes actividades. También habilitó un aula para reuniones de catequistas. Su disposición a invertir de su propio bolsillo para las obras demostró su profundo compromiso con la comunidad.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal P. Luis Gutiérrez (Vicario) -->
+<div class="modal fade" id="modalLuis" tabindex="-1" aria-labelledby="modalLuisLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLuisLabel">P. Luis Gutiérrez</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Fecha de llegada:</strong> 24 de junio de 2024.</p>
+        <p><strong>Biografía:</strong> El Padre Luis Alberto Gutiérrez Guerrero, conocido afectuosamente como "Padre Luigi", llegó a la parroquia en junio de 2024. Aunque su gestión es reciente, ha mostrado un gran interés en conocer la historia de la parroquia y las necesidades de las comunidades rurales. Con experiencia previa en otras parroquias, el Padre Luigi busca fortalecer los lazos comunitarios y continuar el legado de sus predecesores. Su carisma y dedicación han generado expectativas positivas en la comunidad.</p>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- SECCIÓN DE SACRAMENTOS-->
 <section>
   <div class="container">
@@ -75,16 +181,16 @@
           su misión. Catecismo de la Iglesia Católica, n. 1213</p>
       </div>
       <div class="col-md-6">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnG7AH5UYeTDRt0zImGvkSDyDSLRmNO_9SMg&s"
-          alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnG7AH5UYeTDRt0zImGvkSDyDSLRmNO_9SMg&s"
-          class="img w-100 p-3">
+        <img src="{% static 'images/chocolat/bau.jpeg' %}"
+          alt="bautizmos"
+          class="img w-75 p-3">
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNp4fQ9imlHpLQVv-UbEvlvuCLfXlwCQdsRg&s"
+        <img src="{% static 'images/chocolat/bbb.jpeg' %}"
           alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNp4fQ9imlHpLQVv-UbEvlvuCLfXlwCQdsRg&s"
-          class="img w-100 p-3">
+          class="img w-75 p-3">
       </div>
       <div class="col-md-6">
         <h3 class="h3">Confesiones</h3>
@@ -116,14 +222,14 @@
           dar es mi carne por la vida del mundo". (Jn 6, 51).</p>
       </div>
       <div class="col-md-6">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWK60A8Mw0e-wVt1gSbZPi4_CeQF_2dw-H1g&s" alt=""
-          class="img w-100 p-3">
+        <img src="{% static 'images/chocolat/p_jose_luis.jpeg' %}" alt=""
+          class="img w-75 p-3">
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS97tnf3N3cKcSpCPoT-xNsoGRCdt-2GEmAWQ&s" alt=""
-          class="img w-100 p-3">
+        <img src="{% static 'images/chocolat/lll.jpeg' %}" alt=""
+          class="img w-75 p-3">
       </div>
       <div class="col-md-6">
         <h3 class="h3">Matrimonios</h3>
