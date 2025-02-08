@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 50px 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #072366;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        font-weight: bold;
+    }
+
+    .biography {
+        background-color: white;
+        margin: 30px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .biography:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .biography img {
+        max-width: 250px;
+        margin-right: 30px;
+        border-radius: 12px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .biography img:hover {
+        transform: scale(1.05);
+    }
+
+    .biography h2 {
+        color: #072366;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .biography p {
+        color: #555;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .date {
+        font-weight: bold;
+        color: #072366;
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .biography {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .biography img {
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
+<div class="container">
+    <h1>Biografías de los Padres</h1>
+
+    <div class="biography">
+        <img src="{% static 'images/parrocos/p_emiliano.jpeg' %}" alt="P. Emiliano Jácome">
+        <div>
+            <h2>P. Emiliano Jácome</h2>
+            <p class="date">Fecha de llegada: 4 de septiembre de 1999.</p>
+            <p>El Padre Emiliano Jácome se caracterizó por su dinamismo y su cercanía con los jóvenes. Durante su gestión, organizó talleres de formación en valores y oficios, y promovió actividades recreativas, como campeonatos de fútbol, para fomentar la unión entre los jóvenes de las comunidades rurales. Su enfoque en la educación y la juventud marcó un antes y un después en la vida parroquial.</p>
+        </div>
+    </div>
+
+    <div class="biography">
+        <img src="{% static 'images/parrocos/p_jose_luis.jpeg' %}" alt="P. José Luis Tapia">
+        <div>
+            <h2>P. José Luis Tapia</h2>
+            <p class="date">Fecha de llegada: 31 de julio de 2014.</p>
+            <p>El Padre José Luis Tapia llegó a la parroquia en julio de 2014. Durante su tiempo aquí, inició la construcción de nuevas aulas para la Catequesis y renovó el piso de la Iglesia. Aunque residía en Salcedo, siempre estuvo comprometido con las necesidades de la comunidad. Su trabajo sentó las bases para las mejoras que llegarían en los años siguientes.</p>
+        </div>
+    </div>
+
+    <div class="biography">
+        <img src="{% static 'images/parrocos/p_cristian.jpg' %}" alt="P. Cristian Santana">
+        <div>
+            <h2>P. Cristian Santana</h2>
+            <p class="date">Fecha de llegada: 28 de agosto de 2022.</p>
+            <p>El Padre Cristian Santana llegó a la parroquia en agosto de 2022 y se destacó por su enfoque práctico y resolutivo. Realizó una remodelación completa de la Catequesis, arreglando aulas, baños y pisos, e implementando espacios dedicados a diferentes actividades. También habilitó un aula para reuniones de catequistas. Su disposición a invertir de su propio bolsillo para las obras demostró su profundo compromiso con la comunidad.</p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
