@@ -21,7 +21,46 @@
   }
 </style>
 
+<!-- Carrusel de videos -->
+<div id="carouselVideoExample" class="carousel slide carousel-fade" data-mdb-carousel-init data-mdb-ride="carousel">
+  
+  <!-- Indicadores -->
+  <div class="carousel-indicators">
+    <button type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide-to="0" class="active"></button>
+    <button type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide-to="1"></button>
+  </div>
 
+  <!-- Contenido del carrusel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <video class="img-fluid" autoplay loop muted>
+        <source src="{% static 'images/iglesiav.mp4' %}" type="video/mp4" />
+      </video>
+      <div class="carousel-caption">
+        <h5>Iglesia</h5>
+        <p>Un espacio de paz y devoción</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <video class="img-fluid" autoplay loop muted>
+        <source src="{% static 'images/iglesia2.mp4' %}" type="video/mp4" />
+      </video>
+      <div class="carousel-caption">
+        <h5>Santísima Trinidad</h5>
+        <p>Un lugar de encuentro espiritual</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <button class="carousel-control-prev" type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
 
 <!-- Título de la galería -->
 <h1 class="text-center mt-5">Galería de Imágenes</h1>
