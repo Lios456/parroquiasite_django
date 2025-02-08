@@ -45,6 +45,16 @@ def oracion(request):
 def galeria(request):
     return render(request, 'galeria.html')
 
+def padre(request):
+    return render(request, 'padre.html')
+
+def vicario(request):
+    return render(request, 'vicario.html')
+
+def monsenor(request):
+    return render(request, 'monsenor.html')
+
+
 def news(request):
     if request.method == 'POST':
         try:
