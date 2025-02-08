@@ -62,12 +62,22 @@ class PersonaForm(forms.ModelForm):
 """
 RESERVA DE MISAS
 """
+from django.utils import timezone
+
 class ReservaMisa(models.Model):
+    ESTADO_CHOICES = [
+        ('pendiente', 'Pendiente'),
+        ('aprobada', 'Aprobada'),
+        ('rechazada', 'Rechazada'),
+    ]
+
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField()
     hora = models.TimeField()
     intenciones = models.TextField()
-
+    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
+    fecha_creacion = models.DateTimeField(default=timezone.now)  # Valor predeterminado explícito
+    
     def __str__(self):
         return f"Reserva de misa - {self.usuario.username} - {self.fecha} {self.hora}"
     
@@ -134,6 +144,12 @@ class BautizoForm(forms.ModelForm):
 MATRIMONIOS
 """
 class Matrimonio(models.Model):
+    ESTADO_CHOICES = [
+        ('pendiente', 'Pendiente'),
+        ('aprobada', 'Aprobada'),
+        ('rechazada', 'Rechazada'),
+    ]
+
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField()
     hora = models.TimeField()
@@ -141,17 +157,12 @@ class Matrimonio(models.Model):
     nombre_novia = models.CharField(max_length=200, verbose_name='Nombre de la Novia')
     padrinos = models.CharField(max_length=200)
     observaciones = models.TextField(blank=True, null=True)
-
-    def clean(self):
-        # Validar que la fecha no sea anterior a la fecha actual y tenga al menos una semana de anticipación
-        if self.fecha < timezone.now().date():
-            raise ValidationError("La fecha no puede ser anterior a la actual.")
-        if self.fecha < (timezone.now() + timedelta(weeks=1)).date():
-            raise ValidationError("La fecha debe tener al menos una semana de anticipación.")
+    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
+    fecha_creacion = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"Matrimonio - {self.usuario.username} - {self.fecha} {self.hora}"
-
+    
 class MatrimonioForm(forms.ModelForm):
     class Meta:
         model = Matrimonio

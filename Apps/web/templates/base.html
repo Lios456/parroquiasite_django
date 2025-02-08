@@ -560,7 +560,15 @@
         return this.optional(element) || /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]*$/.test(value);
     }, "Este campo solo acepta letras.");
 </script>
-
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</script>
 <script>
     {% if messages %}
     {% for m in messages %}

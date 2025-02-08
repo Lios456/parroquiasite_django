@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
     <h2>Solicitudes de Matrimonio</h2>
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Usuario</th>
@@ -13,6 +13,7 @@
                 <th>Nombre de la Novia</th>
                 <th>Padrinos</th>
                 <th>Observaciones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,16 @@
                 <td>{{ matrimonio.nombre_novia }}</td>
                 <td>{{ matrimonio.padrinos }}</td>
                 <td>{{ matrimonio.observaciones }}</td>
+                <td>
+                    <!-- Botón para aprobar -->
+                    <a href="{% url 'aprobar_solicitud_matrimonio' matrimonio.id %}" class="btn btn-success btn-sm">
+                        Aprobar
+                    </a>
+                    <!-- Botón para rechazar -->
+                    <a href="{% url 'rechazar_solicitud_matrimonio' matrimonio.id %}" class="btn btn-danger btn-sm">
+                        Rechazar
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

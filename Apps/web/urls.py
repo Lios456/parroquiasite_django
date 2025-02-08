@@ -29,11 +29,19 @@ urlpatterns = [
 
     path('solicitar-misa/', views.solicitar_misa, name='solicitar_misa'),
     path('ver-solicitudes/', views.ver_solicitudes, name='ver_solicitudes'),
+    
+    path('aprobar_solicitud_misa/<int:reserva_id>/', views.aprobar_solicitud_misa, name='aprobar_solicitud_misa'),
+    path('rechazar_solicitud_misa/<int:reserva_id>/', views.rechazar_solicitud_misa, name='rechazar_solicitud_misa'),
+    
     path('registro/', views.registro, name='registro'),
     
     path('solicitar-bautizo/', views.solicitar_bautizo, name='solicitar_bautizo'),
     path('ver-solicitudes-bautizos/', views.ver_solicitudes_bautizos, name='ver_solicitudes_bautizos'),
+     path('aprobar_solicitud_bautizo/<int:bautizo_id>/', views.aprobar_solicitud_bautizo, name='aprobar_solicitud_bautizo'),
+    path('rechazar_solicitud_bautizo/<int:bautizo_id>/', views.rechazar_solicitud_bautizo, name='rechazar_solicitud_bautizo'),
     
     path('solicitar-matrimonio/', views.solicitar_matrimonio, name='solicitar_matrimonio'),
-    path('ver-solicitudes-matrimonios/', views.ver_solicitudes_matrimonios, name='ver_solicitudes_matrimonios')
+    path('ver-solicitudes-matrimonios/', views.ver_solicitudes_matrimonios, name='ver_solicitudes_matrimonios'),
+    path('aprobar_solicitud_matrimonio/<int:matrimonio_id>/', views.aprobar_solicitud_matrimonio, name='aprobar_solicitud_matrimonio'),
+    path('rechazar_solicitud_matrimonio/<int:matrimonio_id>/', views.rechazar_solicitud_matrimonio, name='rechazar_solicitud_matrimonio'),
 ]

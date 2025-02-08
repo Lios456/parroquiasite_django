@@ -342,9 +342,8 @@ def solicitar_misa(request):
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
 def ver_solicitudes(request):
-    reservas = ReservaMisa.objects.all()
+    reservas = ReservaMisa.objects.filter(estado='pendiente').select_related('usuario').all()
     return render(request, 'ver_solicitudes.html', {'reservas': reservas})
-
 
 def registro(request):
     if request.method == 'POST':
@@ -466,5 +465,194 @@ def solicitar_matrimonio(request):
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
 def ver_solicitudes_matrimonios(request):
-    matrimonios = Matrimonio.objects.all()
+    matrimonios = Matrimonio.objects.filter(estado='pendiente').select_related('usuario').all()
     return render(request, 'ver_solicitudes_matrimonios.html', {'matrimonios': matrimonios})
+
+
+
+def aprobar_solicitud_misa(request, reserva_id):
+    reserva = get_object_or_404(ReservaMisa, id=reserva_id)
+    reserva.estado = 'aprobada'
+    reserva.save()
+    messages.success(request, f'La solicitud de {reserva.usuario.username} ha sido aprobada.')
+    return redirect('ver_solicitudes')
+
+def rechazar_solicitud_misa(request, reserva_id):
+    reserva = get_object_or_404(ReservaMisa, id=reserva_id)
+    reserva.estado = 'rechazada'
+    reserva.save()
+    messages.error(request, f'La solicitud de {reserva.usuario.username} ha sido rechazada.')
+    return redirect('ver_solicitudes')
+
+
+#para aprobar se verifican las fechas y se devuelve un correo
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def aprobar_solicitud_matrimonio(request, matrimonio_id):
+    matrimonio = get_object_or_404(Matrimonio, id=matrimonio_id)
+
+    # Cambiar el estado a "aprobada"
+    matrimonio.estado = 'aprobada'
+    matrimonio.save()
+
+    # 📧 Enviar correo de confirmación al usuario
+    subject_user = "Confirmación de tu solicitud de Matrimonio"
+    body_user = f"""
+    Hola {matrimonio.usuario.username},
+
+    Tu solicitud de matrimonio ha sido aprobada. Aquí están los detalles:
+
+    Detalles de tu solicitud:
+    -------------------------
+    Fecha: {matrimonio.fecha}
+    Hora: {matrimonio.hora}
+    Nombre del Novio: {matrimonio.nombre_novio}
+    Nombre de la Novia: {matrimonio.nombre_novia}
+    Padrinos: {matrimonio.padrinos}
+    Observaciones: {matrimonio.observaciones}
+
+    Gracias por contactarnos.
+
+    Atentamente,
+    Santísima Trinidad La Laguna
+    """
+
+    send_mail(
+        subject_user,
+        body_user,
+        'santisimatrinidadlalaguna@gmail.com',  # Remitente
+        [matrimonio.usuario.email],  # Destinatario: usuario que llenó el formulario
+        fail_silently=False,
+    )
+
+    messages.success(request, f'La solicitud de {matrimonio.usuario.username} ha sido aprobada.')
+    return redirect('ver_solicitudes_matrimonios')   
+    
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def rechazar_solicitud_matrimonio(request, matrimonio_id):
+    matrimonio = get_object_or_404(Matrimonio, id=matrimonio_id)
+
+    # Cambiar el estado a "rechazada"
+    matrimonio.estado = 'rechazada'
+    matrimonio.save()
+
+    # 📧 Enviar correo solicitando cambio de fecha
+    subject_user = "Solicitud de cambio de fecha para tu Matrimonio"
+    body_user = f"""
+    Hola {matrimonio.usuario.username},
+
+    Lamentamos informarte que tu solicitud de matrimonio ha sido rechazada debido a un conflicto de horarios.
+
+    Por favor, contáctanos para proponer una nueva fecha y hora.
+
+    Detalles de tu solicitud:
+    -------------------------
+    Fecha: {matrimonio.fecha}
+    Hora: {matrimonio.hora}
+    Nombre del Novio: {matrimonio.nombre_novio}
+    Nombre de la Novia: {matrimonio.nombre_novia}
+    Padrinos: {matrimonio.padrinos}
+    Observaciones: {matrimonio.observaciones}
+
+    Atentamente,
+    Santísima Trinidad La Laguna
+    """
+
+    send_mail(
+        subject_user,
+        body_user,
+        'santisimatrinidadlalaguna@gmail.com',  # Remitente
+        [matrimonio.usuario.email],  # Destinatario: usuario que llenó el formulario
+        fail_silently=False,
+    )
+
+    messages.error(request, f'La solicitud de {matrimonio.usuario.username} ha sido rechazada. Se ha solicitado un cambio de fecha.')
+    return redirect('ver_solicitudes_matrimonios')
+
+
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def aprobar_solicitud_bautizo(request, bautizo_id):
+    bautizo = get_object_or_404(Bautizo, id=bautizo_id)
+
+    # Cambiar el estado a "aprobada"
+    bautizo.estado = 'aprobada'
+    bautizo.save()
+
+    # 📧 Enviar correo de confirmación al usuario
+    subject_user = "Confirmación de tu solicitud de Bautizo"
+    body_user = f"""
+    Hola {bautizo.usuario.username},
+
+    Tu solicitud de bautizo ha sido aprobada. Aquí están los detalles:
+
+    Detalles de tu solicitud:
+    -------------------------
+    Fecha: {bautizo.fecha}
+    Hora: {bautizo.hora}
+    Nombre del Niño/Niños: {bautizo.nombre_nino}
+    Nombre del Padre: {bautizo.nombre_padre}
+    Nombre de la Madre: {bautizo.nombre_madre}
+    Padrinos: {bautizo.padrinos}
+    Observaciones: {bautizo.observaciones}
+
+    Gracias por contactarnos.
+
+    Atentamente,
+    Santísima Trinidad La Laguna
+    """
+
+    send_mail(
+        subject_user,
+        body_user,
+        'santisimatrinidadlalaguna@gmail.com',  # Remitente
+        [bautizo.usuario.email],  # Destinatario: usuario que llenó el formulario
+        fail_silently=False,
+    )
+
+    messages.success(request, f'La solicitud de {bautizo.usuario.username} ha sido aprobada.')
+    return redirect('ver_solicitudes_bautizos')
+
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def rechazar_solicitud_bautizo(request, bautizo_id):
+    bautizo = get_object_or_404(Bautizo, id=bautizo_id)
+
+    # Cambiar el estado a "rechazada"
+    bautizo.estado = 'rechazada'
+    bautizo.save()
+
+    # 📧 Enviar correo solicitando cambio de fecha
+    subject_user = "Solicitud de cambio de fecha para tu Bautizo"
+    body_user = f"""
+    Hola {bautizo.usuario.username},
+
+    Lamentamos informarte que tu solicitud de bautizo ha sido rechazada debido a un conflicto de horarios.
+
+    Por favor, contáctanos para proponer una nueva fecha y hora.
+
+    Detalles de tu solicitud:
+    -------------------------
+    Fecha: {bautizo.fecha}
+    Hora: {bautizo.hora}
+    Nombre del Niño/Niños: {bautizo.nombre_nino}
+    Nombre del Padre: {bautizo.nombre_padre}
+    Nombre de la Madre: {bautizo.nombre_madre}
+    Padrinos: {bautizo.padrinos}
+    Observaciones: {bautizo.observaciones}
+
+    Atentamente,
+    Santísima Trinidad La Laguna
+    """
+
+    send_mail(
+        subject_user,
+        body_user,
+        'santisimatrinidadlalaguna@gmail.com',  # Remitente
+        [bautizo.usuario.email],  # Destinatario: usuario que llenó el formulario
+        fail_silently=False,
+    )
+
+    messages.error(request, f'La solicitud de {bautizo.usuario.username} ha sido rechazada. Se ha solicitado un cambio de fecha.')
+    return redirect('ver_solicitudes_bautizos')

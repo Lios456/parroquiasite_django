@@ -1,33 +1,46 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <h2>Solicitudes de Bautizo</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Usuario</th>
-        <th>Fecha</th>
-        <th>Hora</th>
-        <th>Nombre del Niño/Niños</th>
-        <th>Nombre del Padre</th>
-        <th>Nombre de la Madre</th>
-        <th>Padrinos</th>
-        <th>Observaciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for bautizo in bautizos %}
-      <tr>
-        <td>{{ bautizo.usuario.username }}</td>
-        <td>{{ bautizo.fecha }}</td>
-        <td>{{ bautizo.hora }}</td>
-        <td>{{ bautizo.nombre_nino }}</td>
-        <td>{{ bautizo.nombre_padre }}</td>
-        <td>{{ bautizo.nombre_madre }}</td>
-        <td>{{ bautizo.padrinos }}</td>
-        <td>{{ bautizo.observaciones }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="container">
+    <h2>Solicitudes de Bautizo</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Nombre del Niño/Niños</th>
+                <th>Nombre del Padre</th>
+                <th>Nombre de la Madre</th>
+                <th>Padrinos</th>
+                <th>Observaciones</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bautizo in bautizos %}
+            <tr>
+                <td>{{ bautizo.usuario.username }}</td>
+                <td>{{ bautizo.fecha }}</td>
+                <td>{{ bautizo.hora }}</td>
+                <td>{{ bautizo.nombre_nino }}</td>
+                <td>{{ bautizo.nombre_padre }}</td>
+                <td>{{ bautizo.nombre_madre }}</td>
+                <td>{{ bautizo.padrinos }}</td>
+                <td>{{ bautizo.observaciones }}</td>
+                <td>
+                    <!-- Botón para aprobar -->
+                    <a href="{% url 'aprobar_solicitud_bautizo' bautizo.id %}" class="btn btn-success btn-sm">
+                        Aprobar
+                    </a>
+                    <!-- Botón para rechazar -->
+                    <a href="{% url 'rechazar_solicitud_bautizo' bautizo.id %}" class="btn btn-danger btn-sm">
+                        Rechazar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

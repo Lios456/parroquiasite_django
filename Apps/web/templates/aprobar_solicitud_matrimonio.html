@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>Aprobar Solicitud de Matrimonio</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" class="form-control" id="fecha" name="fecha" value="{{ form.fecha.value|date:'Y-m-d' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="hora" class="form-label">Hora</label>
+            <input type="time" class="form-control" id="hora" name="hora" value="{{ form.hora.value|time:'H:i' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nombre_novio" class="form-label">Nombre del Novio</label>
+            <input type="text" class="form-control" id="nombre_novio" name="nombre_novio" value="{{ form.nombre_novio.value }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nombre_novia" class="form-label">Nombre de la Novia</label>
+            <input type="text" class="form-control" id="nombre_novia" name="nombre_novia" value="{{ form.nombre_novia.value }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="padrinos" class="form-label">Padrinos</label>
+            <input type="text" class="form-control" id="padrinos" name="padrinos" value="{{ form.padrinos.value }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="observaciones" class="form-label">Observaciones</label>
+            <textarea class="form-control" id="observaciones" name="observaciones" rows="3">{{ form.observaciones.value }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Aprobar</button>
+        <a href="{% url 'ver_solicitudes_matrimonios' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
