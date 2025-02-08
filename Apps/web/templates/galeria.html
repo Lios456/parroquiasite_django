@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<!-- Estilos personalizados -->
+<style>
+ 
+
+  .carousel-item video {
+    object-fit: cover;
+    height: 80vh;
+    width: 100%;
+  }
+
+  .gallery img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<!-- Carrusel de videos -->
+<div id="carouselVideoExample" class="carousel slide carousel-fade" data-mdb-carousel-init data-mdb-ride="carousel">
+  
+  <!-- Indicadores -->
+  <div class="carousel-indicators">
+    <button type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide-to="0" class="active"></button>
+    <button type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide-to="1"></button>
+  </div>
+
+  <!-- Contenido del carrusel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <video class="img-fluid" autoplay loop muted>
+        <source src="{% static 'images/iglesiav.mp4' %}" type="video/mp4" />
+      </video>
+      <div class="carousel-caption">
+        <h5>Iglesia</h5>
+        <p>Un espacio de paz y devoción</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <video class="img-fluid" autoplay loop muted>
+        <source src="{% static 'images/iglesia2.mp4' %}" type="video/mp4" />
+      </video>
+      <div class="carousel-caption">
+        <h5>Santísima Trinidad</h5>
+        <p>Un lugar de encuentro espiritual</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <button class="carousel-control-prev" type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-mdb-target="#carouselVideoExample" data-mdb-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- Título de la galería -->
+<h1 class="text-center mt-5">Galería de Imágenes</h1>
+<br><br>
+<!-- Galería de imágenes -->
+<div class="container">
+  <div class="row gallery">
+    <div class="col-lg-4 col-md-6 mb-4">
+      <img src="{% static 'images/gale1.jpeg' %}" class="w-100 shadow-lg rounded" alt="Barco en el agua">
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <img src="{% static 'images/gale6.jpg' %}" class="w-100 shadow-lg rounded" alt="Montaña nevada">
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <img src="{% static 'images/gale5.jpeg' %}" class="w-100 shadow-lg rounded" alt="Montañas en las nubes">
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <img src="{% static 'images/gale3.jpg' %}" class="w-100 shadow-lg rounded" alt="Olas del mar">
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <img src="{% static 'images/gale4.jpg' %}" class="w-100 shadow-lg rounded" alt="Parque Yosemite">
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+        <img src="{% static 'images/misa.jpg' %}" class="w-100 shadow-lg rounded" alt="Parque Yosemite">
+      </div>
+  </div>
+</div>
+
+{% endblock %}

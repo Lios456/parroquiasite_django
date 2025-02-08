@@ -42,6 +42,8 @@ def sacramentos(request):
 def oracion(request):
     return render(request, 'oracion.html')
 
+def galeria(request):
+    return render(request, 'galeria.html')
 
 def news(request):
     if request.method == 'POST':
