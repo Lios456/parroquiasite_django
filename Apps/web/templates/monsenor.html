@@ -1,58 +1,142 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block body %}
-    <div class="container py-5">
-        <h1 class="text-center mb-5 text-primary fw-bold">Biografías de los Monseñores</h1>
 
-        <!-- Biografía de Monseñor Lorenzo Voltolini -->
-        <div class="card mb-5 shadow-lg border-0 rounded-4 overflow-hidden">
-            <div class="row g-0">
-                <div class="col-md-4 d-flex align-items-center justify-content-center bg-light">
-                    <img src="{% static 'images/parrocos/mon_lorenzo.png' %}" 
-                         class="img-fluid rounded-circle p-3 hover-zoom" 
-                         alt="Monseñor Lorenzo Voltolini">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h2 class="card-title text-primary fw-bold">Monseñor Lorenzo Voltolini</h2>
-                        <p class="text-muted"><strong>Fecha de llegada:</strong> Julio de 1982</p>
-                        <p><strong>Origen:</strong> Italia</p>
-                        <p>Monseñor Lorenzo Voltolini, conocido cariñosamente como <strong>"Taita Lorenzo"</strong>, llegó a la Diócesis de Latacunga en 1979 y se estableció en La Laguna en julio de 1982. Fue el fundador de la Parroquia Eclesiástica Santísima Trinidad.</p>
-                        <p>Durante su gestión, compró los terrenos y construyó la Casa Parroquial, la Iglesia y el Centro de Catequesis, que inicialmente funcionó como un centro de formación artesanal. Organizó las comunidades indígenas rurales y creó el primer grupo de catequistas, liderado por la señora Dolores Herrera, así como el primer grupo juvenil.</p>
-                        <p>También trabajó en las comunidades de Santan Grande, Santan Chico, Palopo Centro y Palopo Contadero, entre otras. En Pilligloma, edificó una iglesia en honor a San Luis Gonzaga. Su legado perdura en la estructura física y espiritual de la parroquia.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
 
-        <!-- Biografía de Monseñor Victoriano Naranjo -->
-        <div class="card mb-5 shadow-lg border-0 rounded-4 overflow-hidden">
-            <div class="row g-0">
-                <div class="col-md-4 d-flex align-items-center justify-content-center bg-light">
-                    <img src="{% static 'images/parrocos/victoriano_naranjo.jpeg' %}" 
-                         class="img-fluid rounded-circle p-3 hover-zoom" 
-                         alt="Monseñor Victoriano Naranjo">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h2 class="card-title text-primary fw-bold">Monseñor Victoriano Naranjo</h2>
-                        <p class="text-muted"><strong>Fecha de llegada:</strong> 9 de septiembre de 1995</p>
-                        <p>El Padre Victoriano Naranjo llegó a la parroquia en septiembre de 1995. Durante su tiempo aquí, se enfocó en consolidar el trabajo iniciado por Monseñor Lorenzo, especialmente en la formación de catequistas y el fortalecimiento de las comunidades rurales.</p>
-                        <p>Aunque su estilo era más reservado, su dedicación a la oración y su compromiso con la parroquia dejaron una huella significativa.</p>
-                    </div>
-                </div>
-            </div>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 50px 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #072366;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        font-weight: bold;
+    }
+
+    .biography {
+        background-color: white;
+        margin: 30px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .biography:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .biography img {
+        max-width: 250px;
+        margin-right: 30px;
+        border-radius: 12px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .biography img:hover {
+        transform: scale(1.05);
+    }
+
+    .biography h2 {
+        color: #072366;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .biography p {
+        color: #555;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .date {
+        font-weight: bold;
+        color: #072366;
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .biography {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .biography img {
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+    }
+
+
+    .menu-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .menu-links a {
+        text-decoration: none;
+        background-color:rgb(16, 61, 109)  ;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+    .menu-links a:hover {
+        background-color: #05213c;
+    }
+</style>
+
+<div class="menu-links">
+    <a href="/padre/">Padres</a>
+    <a href="/monsenor/">Monseñor</a>
+    <a href="/vicario/">Vicario</a>
+</div>
+
+
+<div class="container">
+    <h1>Biografías de los Monseñores</h1>
+
+    <div class="biography">
+        <img src="{% static 'images/parrocos/mon_lorenzo.png' %}" alt="P. Emiliano Jácome">
+        <div>
+            <h2>Monseñor Lorenzo Voltolini</h2>
+            <p class="date">Fecha de llegada:  Julio de 1982</p>
+            <p>Monseñor Lorenzo Voltolini, conocido cariñosamente como "Taita Lorenzo", llegó a la Diócesis de Latacunga en 1979 y se estableció en La Laguna en julio de 1982. Fue el fundador de la Parroquia Eclesiástica Santísima Trinidad.
+                Durante su gestión, compró los terrenos y construyó la Casa Parroquial, la Iglesia y el Centro de Catequesis, que inicialmente funcionó como un centro de formación artesanal. Organizó las comunidades indígenas rurales y creó el primer grupo de catequistas, liderado por la señora Dolores Herrera, así como el primer grupo juvenil.
+                También trabajó en las comunidades de Santan Grande, Santan Chico, Palopo Centro y Palopo Contadero, entre otras. En Pilligloma, edificó una iglesia en honor a San Luis Gonzaga. Su legado perdura en la estructura física y espiritual de la parroquia.</p>
         </div>
     </div>
 
-    <!-- Estilos personalizados -->
-    <style>
-        .hover-zoom {
-            transition: transform 0.3s ease-in-out;
-        }
-        .hover-zoom:hover {
-            transform: scale(1.1);
-        }
-    </style>
+
+    <div class="biography">
+        <img src="{% static 'images/parrocos/victoriano_naranjo.jpeg' %}" alt="P. Cristian Santana">
+        <div>
+            <h2>Monseñor Victoriano Naranjo</h2>
+            <p class="date">Fecha de llegada:  9 de septiembre de 1995</p>
+            <p>El Padre Victoriano Naranjo llegó a la parroquia en septiembre de 1995. Durante su tiempo aquí, se enfocó en consolidar el trabajo iniciado por Monseñor Lorenzo, especialmente en la formación de catequistas y el fortalecimiento de las comunidades rurales.Aunque su estilo era más reservado, su dedicación a la oración y su compromiso con la parroquia dejaron una huella significativa.</p>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

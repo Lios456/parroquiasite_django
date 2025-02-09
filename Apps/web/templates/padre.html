@@ -83,7 +83,35 @@
             margin-bottom: 20px;
         }
     }
+
+
+    .menu-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .menu-links a {
+        text-decoration: none;
+        background-color:rgb(16, 61, 109)  ;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+    .menu-links a:hover {
+        background-color: #05213c;
+    }
 </style>
+
+<div class="menu-links">
+    <a href="/padre/">Padres</a>
+    <a href="/monsenor/">Monseñor</a>
+    <a href="/vicario/">Vicario</a>
+</div>
+
 
 <div class="container">
     <h1>Biografías de los Padres</h1>
