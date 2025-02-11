@@ -172,11 +172,11 @@ def logout_view(request):
 def contacto(request):
     if request.method == 'POST':
         try:
-            # Obtener datos del formulario
-            name = request.POST.get('name')
+            # Obtener datos del formulario y convertir a mayúsculas
+            name = request.POST.get('name', '').upper()  # Convertir a mayúsculas
             email = request.POST.get('email')  # Email del usuario
             phone = request.POST.get('phone')
-            address = request.POST.get('address')
+            address = request.POST.get('address', '').upper()  # Convertir a mayúsculas
             message = request.POST.get('message')
 
             # Guardar en la base de datos
@@ -253,6 +253,7 @@ def contacto(request):
             messages.error(request, f'Error al enviar el mensaje: {str(e)}')
 
     return render(request, 'contacto.html')
+
 
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
@@ -414,6 +415,13 @@ def solicitar_bautizo(request):
         if form.is_valid():
             bautizo = form.save(commit=False)
             bautizo.usuario = request.user  # Asignamos el usuario logueado
+
+            # Convertir los campos a mayúsculas
+            bautizo.nombre_nino = bautizo.nombre_nino.upper()
+            bautizo.nombre_padre = bautizo.nombre_padre.upper()
+            bautizo.nombre_madre = bautizo.nombre_madre.upper()
+            bautizo.padrinos = bautizo.padrinos.upper()
+
             bautizo.save()
             
             # 📧 Enviar correo al usuario
@@ -487,6 +495,7 @@ def solicitar_bautizo(request):
     return render(request, 'solicitar_bautizo.html', {'form': form})
 
 
+
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
 def ver_solicitudes_bautizos(request):
@@ -500,6 +509,12 @@ def solicitar_matrimonio(request):
         if form.is_valid():
             matrimonio = form.save(commit=False)
             matrimonio.usuario = request.user  # Asignamos el usuario logueado
+
+            # Convertir los campos a mayúsculas
+            matrimonio.nombre_novio = matrimonio.nombre_novio.upper()
+            matrimonio.nombre_novia = matrimonio.nombre_novia.upper()
+            matrimonio.padrinos = matrimonio.padrinos.upper()
+
             matrimonio.save()
             
             # 📧 Enviar correo al usuario
