@@ -314,6 +314,7 @@ def solicitar_misa(request):
             reserva = form.save(commit=False)
             reserva.usuario = request.user  # Asignamos el usuario logueado
             reserva.save()
+            
             # 📧 Enviar correo al usuario
             subject_user = "Confirmación de tu solicitud de Misa"
             body_user = f"""
@@ -332,7 +333,7 @@ def solicitar_misa(request):
             Atentamente,
             Santísima Trinidad La Laguna
             """
-
+            
             send_mail(
                 subject_user,
                 body_user,
@@ -340,6 +341,33 @@ def solicitar_misa(request):
                 [request.user.email],  # Destinatario: usuario que llenó el formulario
                 fail_silently=False,
             )
+            
+            # 📧 Enviar correo de notificación a ti mismo con el mismo remitente
+            subject_admin = "Nueva solicitud de Misa recibida"
+            body_admin = f"""
+            Hola,
+
+            Se ha recibido una nueva solicitud de misa.
+
+            Detalles de la solicitud:
+            -------------------------
+            Usuario: {request.user.username}
+            Correo: {request.user.email}
+            Fecha: {reserva.fecha}
+            Hora: {reserva.hora}
+            Intenciones: {reserva.intenciones}
+
+            Revisa el sistema para más detalles.
+            """
+            
+            send_mail(
+                subject_admin,
+                body_admin,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                ['santisimatrinidadlalaguna@gmail.com'],  # Mismo remitente como destinatario
+                fail_silently=False,
+            )
+            
             messages.success(request, 'Tu solicitud de misa ha sido enviada con éxito, revisa tu correo')
             return redirect('/')
         else:
@@ -348,6 +376,7 @@ def solicitar_misa(request):
         form = ReservaMisaForm()
 
     return render(request, 'solicitar_misa.html', {'form': form})
+
 
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
