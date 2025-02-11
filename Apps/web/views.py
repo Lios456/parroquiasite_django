@@ -410,6 +410,7 @@ def solicitar_bautizo(request):
             bautizo = form.save(commit=False)
             bautizo.usuario = request.user  # Asignamos el usuario logueado
             bautizo.save()
+            
             # 📧 Enviar correo al usuario
             subject_user = "Confirmación de tu solicitud de Bautizo"
             body_user = f"""
@@ -432,7 +433,7 @@ def solicitar_bautizo(request):
             Atentamente,
             Santísima Trinidad La Laguna
             """
-
+            
             send_mail(
                 subject_user,
                 body_user,
@@ -440,6 +441,37 @@ def solicitar_bautizo(request):
                 [request.user.email],  # Destinatario: usuario que llenó el formulario
                 fail_silently=False,
             )
+            
+            # 📧 Enviar correo de notificación a ti mismo con el mismo remitente
+            subject_admin = "Nueva solicitud de Bautizo recibida"
+            body_admin = f"""
+            Hola,
+
+            Se ha recibido una nueva solicitud de bautizo.
+
+            Detalles de la solicitud:
+            -------------------------
+            Usuario: {request.user.username}
+            Correo: {request.user.email}
+            Fecha: {bautizo.fecha}
+            Hora: {bautizo.hora}
+            Nombre del Niño/Niños: {bautizo.nombre_nino}
+            Nombre del Padre: {bautizo.nombre_padre}
+            Nombre de la Madre: {bautizo.nombre_madre}
+            Padrinos: {bautizo.padrinos}
+            Observaciones: {bautizo.observaciones}
+
+            Revisa el sistema para más detalles.
+            """
+            
+            send_mail(
+                subject_admin,
+                body_admin,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                ['santisimatrinidadlalaguna@gmail.com'],  # Mismo remitente como destinatario
+                fail_silently=False,
+            )
+            
             messages.success(request, 'Tu solicitud de bautizo ha sido enviada con éxito, revisa tu correo')
             return redirect('/')
         else:
@@ -448,6 +480,7 @@ def solicitar_bautizo(request):
         form = BautizoForm()
 
     return render(request, 'solicitar_bautizo.html', {'form': form})
+
 
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
@@ -463,6 +496,7 @@ def solicitar_matrimonio(request):
             matrimonio = form.save(commit=False)
             matrimonio.usuario = request.user  # Asignamos el usuario logueado
             matrimonio.save()
+            
             # 📧 Enviar correo al usuario
             subject_user = "Confirmación de tu solicitud de Matrimonio"
             body_user = f"""
@@ -492,6 +526,32 @@ def solicitar_matrimonio(request):
                 [request.user.email],  # Destinatario: usuario que llenó el formulario
                 fail_silently=False,
             )
+            
+            # 📧 Enviar correo a la iglesia
+            subject_church = "Nueva solicitud de matrimonio recibida"
+            body_church = f"""
+            Se ha recibido una nueva solicitud de matrimonio.
+
+            Detalles de la solicitud:
+            -------------------------
+            Usuario: {request.user.username}
+            Email: {request.user.email}
+            Fecha: {matrimonio.fecha}
+            Hora: {matrimonio.hora}
+            Nombre del Novio: {matrimonio.nombre_novio}
+            Nombre de la Novia: {matrimonio.nombre_novia}
+            Padrinos: {matrimonio.padrinos}
+            Observaciones: {matrimonio.observaciones}
+            """
+
+            send_mail(
+                subject_church,
+                body_church,
+                'santisimatrinidadlalaguna@gmail.com',  # Remitente
+                ['santisimatrinidadlalaguna@gmail.com'],  # Destinatario: Iglesia
+                fail_silently=False,
+            )
+
             messages.success(request, 'Tu solicitud de matrimonio ha sido enviada con éxito, revisa tu correo')
             return redirect('/')
         else:
@@ -500,6 +560,7 @@ def solicitar_matrimonio(request):
         form = MatrimonioForm()
 
     return render(request, 'solicitar_matrimonio.html', {'form': form})
+
 
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
