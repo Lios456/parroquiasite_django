@@ -6,12 +6,8 @@
     <form method="post">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha</label>
+            <label for="fecha" class="form-label">Fecha tentativa</label>
             <input type="date" class="form-control" id="fecha" name="fecha" value="{{ form.fecha.value|date:'Y-m-d' }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="hora" class="form-label">Hora</label>
-            <input type="time" class="form-control" id="hora" name="hora" value="{{ form.hora.value|time:'H:i' }}" required>
         </div>
         <div class="mb-3">
             <label for="nombre_novio" class="form-label">Nombre del Novio</label>

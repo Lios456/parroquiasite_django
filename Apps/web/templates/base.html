@@ -14,9 +14,6 @@
     <!--Validacion del jquery y jqueryValidation 
     <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script> -->
 
-    <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
-    <script src="{% static 'js/jquery.validate.js' %}"></script>
-
     <link href="{% static 'images/main-logo.ico' %}" rel="icon">
 
     <!-- ================================================== Bootstrap ================================================== 
@@ -55,9 +52,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-    <!-- ================================================== GRID JS ================================================== -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.css">
 
 
     <!-- ================================================== DATATABLES ================================================== -->
@@ -133,9 +127,9 @@
                 </div>
                 <div class="offcanvas-body align-items-center justify-content-center">
                     <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
-                                               
-
-
+                        <a class="navbar-brand" href="#">
+                            <img src="{% static 'images/logo.png' %}" class="logo img-fluid w-25">
+                        </a>
                         {% if user.is_superuser %}
                         <!-- Menú para Administradores -->
                         <li class="nav-item px-3 py-1 py-lg-0">
@@ -175,9 +169,6 @@
                         </li>
                     {% else %}
                         <!-- Menú para Usuarios No Autenticados -->
-                        <a class="navbar-brand" href="#">
-                            <img src="{% static 'images/logo.png' %}" class="logo img-fluid" width="10%">
-                        </a>
                         <li class="nav-item px-5 py-1 py-lg-0"> 
                             <a href="/cambio/" class="btn btn-primary btn-slide hover-slide-right" style="width: 100%;font-size:12px"> 
                                 <span>Cambio de</span>
@@ -200,12 +191,21 @@
                                 <li><a href="/santisimatrinidad/" class="dropdown-item">Santísima Trinidad</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item px-3 py-1 py-lg-0">
-                            <a class="nav-link p-0" href="/about/">Sobre Nosotros</a>
+
+                        <li class="nav-item px-3 py-1 py-lg-0 dropdown">
+                            <a class="nav-link p-0 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                Explorar
+                                <svg width="20" height="20" style="vertical-align: sub;">
+                                    <use xlink:href="#arrow-down"></use>
+                                </svg>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end animate slide mt-3 border-0 shadow">
+                                <li><a href="/about/" class="dropdown-item">Sobre nosotros</a></li>
+                                <li><a href="/news/" class="dropdown-item">Noticias</a></li>
+                                <li><a href="/galeria/" class="dropdown-item">Galeria</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item px-3 py-1 py-lg-0">
-                            <a class="nav-link p-0" href="/news/">Noticias</a>
-                        </li>
+
                         <li class="nav-item px-3 py-1 py-lg-0 dropdown">
                             <a class="nav-link p-0 dropdown-toggle" data-bs-toggle="dropdown" href="/liturgia/" role="button" aria-expanded="false">
                                 Liturgía
@@ -231,17 +231,6 @@
                                 <li><a href="/padre/" class="dropdown-item">Padres</a></li>
                                 <li><a href="/monsenor/" class="dropdown-item">Monseñor</a></li>
                                 <li><a href="/vicario/" class="dropdown-item">Vicario</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item px-3 py-1 py-lg-0 dropdown">
-                            <a class="nav-link p-0 dropdown-toggle" data-bs-toggle="dropdown" href="/" role="button" aria-expanded="false">
-                                Galería
-                                <svg width="20" height="20" style="vertical-align: sub;">
-                                    <use xlink:href="#arrow-down"></use>
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end animate slide mt-3 border-0 shadow">
-                                <li><a href="/galeria/" class="dropdown-item">Galeria</a></li>
                             </ul>
                         </li>
                         <li class="nav-item px-3 py-1 py-lg-0">
@@ -492,8 +481,9 @@
     </div>
 </footer>
 
-
-
+<!-- JQUERY -->
+<script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+<script src="{% static 'js/jquery.validate.js' %}"></script>
 
 <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plugins.js' %}"></script>
@@ -592,15 +582,6 @@
 </script>
 <script>
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-</script>
-<script>
-    {% if messages %}
     {% for m in messages %}
 
     {% if m.tags == 'success' %}
@@ -641,5 +622,76 @@
         text-align: justify;
     }
 </style>
+
+<!-- Script para validar el formulario con jQuery Validation Plugin -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#form_registro").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 3
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password1: {
+                    required: true,
+                    minlength: 8
+                },
+                password2: {
+                    required: true,
+                    equalTo: "#id_password1" // Asegúrate de que coincida con el ID del campo
+                }
+            },
+            messages: {
+                username: {
+                    required: "El nombre de usuario es obligatorio.",
+                    minlength: "El nombre de usuario debe tener al menos 3 caracteres."
+                },
+                email: {
+                    required: "El correo electrónico es obligatorio.",
+                    email: "Por favor, ingresa un correo electrónico válido."
+                },
+                password1: {
+                    required: "La contraseña es obligatoria.",
+                    minlength: "La contraseña debe tener al menos 8 caracteres."
+                },
+                password2: {
+                    required: "Debes confirmar la contraseña.",
+                    equalTo: "Las contraseñas no coinciden."
+                }
+            },
+            errorElement: "div", // Usa <div> para mostrar los mensajes de error
+            errorClass: "invalid-feedback", // Clase CSS para los mensajes de error
+            errorPlacement: function (error, element) {
+                // Elimina cualquier mensaje de error previo
+                element.next(".invalid-feedback").remove();
+                // Coloca el nuevo mensaje de error después del campo
+                error.insertAfter(element);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+                // Elimina el mensaje de error cuando el campo es válido
+                $(element).next(".invalid-feedback").remove();
+            },
+            submitHandler: function (form) {
+                // Solo envía el formulario si no hay errores de Django
+                if ($(form).find(".text-danger").length === 0) {
+                    form.submit();
+                } else {
+                    // Si hay errores de Django, no envíes el formulario
+                    return false;
+                }
+            }
+        });
+    });
+</script>
 
 </html>

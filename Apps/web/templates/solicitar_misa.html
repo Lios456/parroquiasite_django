@@ -21,12 +21,8 @@
         <form id="reservaMisaForm" method="post">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="fecha" class="form-label">Fecha</label>
+                <label for="fecha" class="form-label">Fecha tentativa</label>
                 <input type="date" class="form-control" id="fecha" name="fecha" min="{{ current_date }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="hora" class="form-label">Hora</label>
-                <input type="time" class="form-control" id="hora" name="hora" required>
             </div>
             <div class="mb-3">
                 <label for="intenciones" class="form-label">Intenciones</label>
@@ -41,14 +37,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
 <script>
-    $.validator.addMethod("timeRange", function (value, element) {
-        const [inputHours, inputMinutes] = value.split(':').map(Number);
-        const minTime = 6 * 60;   // 6:00 AM en minutos
-        const maxTime = 21 * 60;  // 9:00 PM en minutos
-        const totalMinutes = inputHours * 60 + inputMinutes;
-
-        return totalMinutes >= minTime && totalMinutes <= maxTime;
-    });
 
     $(document).ready(function () {
         $.validator.addMethod("timeRange", function (value, element) {
@@ -65,7 +53,7 @@
                 fecha: {
                     required: true,
                     date: true,
-                    min: new Date().toISOString().split('T')[0]
+                    min: new Date(new Date().getTime() + 86400000).toISOString().split('T')[0]
                 },
                 hora: {
                     required: true,
@@ -73,13 +61,13 @@
                 },
                 intenciones: {
                     required: true,
-                    minlength: 10
+                    minlength: 4
                 }
             },
             messages: {
                 fecha: {
                     required: "Por favor, ingresa la fecha.",
-                    min: "La fecha no puede ser anterior al día de hoy."
+                    min: "Fecha no válida, selecciona otra"
                 },
                 hora: {
                     required: "Por favor, ingresa la hora.",
@@ -87,7 +75,7 @@
                 },
                 intenciones: {
                     required: "Por favor, describe las intenciones.",
-                    minlength: "Mínimo 10 caracteres"
+                    minlength: "Esa no es una intención válida"
                 }
             },
             errorElement: "div",

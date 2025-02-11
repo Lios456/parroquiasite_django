@@ -73,7 +73,6 @@ class ReservaMisa(models.Model):
 
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField()
-    hora = models.TimeField()
     intenciones = models.TextField()
     estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
     fecha_creacion = models.DateTimeField(default=timezone.now)  # Valor predeterminado explícito
@@ -84,32 +83,64 @@ class ReservaMisa(models.Model):
 class ReservaMisaForm(forms.ModelForm):
     class Meta:
         model = ReservaMisa
-        fields = ['fecha', 'hora', 'intenciones']
+        fields = ['fecha', 'intenciones']
         widgets = {
             'fecha': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'hora': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'intenciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ingresa tu correo electrónico'
+        })
+    )
+
+    password1 = forms.CharField(
+        label="Contraseña",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Crea una contraseña segura',
+            'data-bs-toggle': 'tooltip',
+            'data-bs-placement': 'right',
+            'title': 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una minúscula, un número y un carácter especial.'
+        }),
+        help_text="La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una minúscula, un número y un carácter especial."
+    )
+
+    password2 = forms.CharField(
+        label="Confirmar Contraseña",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Confirma tu contraseña',
+            'data-bs-toggle': 'tooltip',
+            'data-bs-placement': 'right',
+            'title': 'Repite la contraseña para confirmar.'
+        }),
+        help_text="Repite la contraseña para confirmar."
+    )
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'password1': forms.TextInput(attrs={'class': 'form-control'}),
-            'password2': forms.TextInput(attrs={'class': 'form-control'})
+            'username': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ingresa un nombre de usuario'
+            }),
         }
-
 """
 BAUTIZOS
 """
 class Bautizo(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField()
-    hora = models.TimeField()
     nombre_nino = models.CharField(max_length=200, verbose_name='Nombre del Niño/Niños')
     nombre_padre = models.CharField(max_length=200, verbose_name='Nombre del Padre')
     nombre_madre = models.CharField(max_length=200, verbose_name='Nombre de la Madre')
@@ -129,10 +160,9 @@ class Bautizo(models.Model):
 class BautizoForm(forms.ModelForm):
     class Meta:
         model = Bautizo
-        fields = ['fecha', 'hora', 'nombre_nino', 'nombre_padre', 'nombre_madre', 'padrinos', 'observaciones']
+        fields = ['fecha', 'nombre_nino', 'nombre_padre', 'nombre_madre', 'padrinos', 'observaciones']
         widgets = {
             'fecha': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'hora': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'nombre_nino': forms.TextInput(attrs={'class': 'form-control'}),
             'nombre_padre': forms.TextInput(attrs={'class': 'form-control'}),
             'nombre_madre': forms.TextInput(attrs={'class': 'form-control'}),
@@ -152,7 +182,6 @@ class Matrimonio(models.Model):
 
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField()
-    hora = models.TimeField()
     nombre_novio = models.CharField(max_length=200, verbose_name='Nombre del Novio')
     nombre_novia = models.CharField(max_length=200, verbose_name='Nombre de la Novia')
     padrinos = models.CharField(max_length=200)
@@ -166,10 +195,9 @@ class Matrimonio(models.Model):
 class MatrimonioForm(forms.ModelForm):
     class Meta:
         model = Matrimonio
-        fields = ['fecha', 'hora', 'nombre_novio', 'nombre_novia', 'padrinos', 'observaciones']
+        fields = ['fecha', 'nombre_novio', 'nombre_novia', 'padrinos', 'observaciones']
         widgets = {
             'fecha': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'hora': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'nombre_novio': forms.TextInput(attrs={'class': 'form-control'}),
             'nombre_novia': forms.TextInput(attrs={'class': 'form-control'}),
             'padrinos': forms.TextInput(attrs={'class': 'form-control'}),

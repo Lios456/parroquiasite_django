@@ -5,26 +5,52 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4" style="width: 400px;">
         <h2 class="text-center mb-4">Registrarse</h2>
-        <form method="POST">
+        <form method="POST" id="form_registro">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="id_username" class="form-label">Nombre de usuario</label>
                 {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="text-danger">{{ form.username.errors }}</div>
+                {% endif %}
             </div>
             <div class="mb-3">
                 <label for="id_email" class="form-label">Correo electrónico</label>
                 {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="text-danger">{{ form.email.errors }}</div>
+                {% endif %}
             </div>
             <div class="mb-3">
                 <label for="id_password1" class="form-label">Contraseña</label>
                 {{ form.password1 }}
+                <small class="form-text text-muted">
+                    {{ form.password1.help_text }}
+                </small>
+                {% if form.password1.errors %}
+                    <div class="text-danger">{{ form.password1.errors }}</div>
+                {% endif %}
             </div>
             <div class="mb-3">
                 <label for="id_password2" class="form-label">Confirmar Contraseña</label>
                 {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="text-danger">{{ form.password2.errors }}</div>
+                {% endif %}
             </div>
             <button type="submit" class="btn btn-primary w-100">Crear cuenta</button>
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+
+
 {% endblock %}

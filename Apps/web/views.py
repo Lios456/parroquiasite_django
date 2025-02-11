@@ -330,8 +330,7 @@ def solicitar_misa(request):
 
             Detalles de tu mensaje:
             -----------------------
-            Fecha: {reserva.fecha}
-            Hora: {reserva.hora}
+            Fecha Tentativa: {reserva.fecha}
             Intenciones: {reserva.intenciones}
 
             Gracias por contactarnos.
@@ -359,8 +358,7 @@ def solicitar_misa(request):
             -------------------------
             Usuario: {request.user.username}
             Correo: {request.user.email}
-            Fecha: {reserva.fecha}
-            Hora: {reserva.hora}
+            Fecha tentativa: {reserva.fecha}
             Intenciones: {reserva.intenciones}
 
             Revisa el sistema para más detalles.
@@ -383,11 +381,10 @@ def solicitar_misa(request):
 
     return render(request, 'solicitar_misa.html', {'form': form})
 
-
 @login_required(login_url='/login/')
 @staff_member_required(login_url='/login/')
 def ver_solicitudes(request):
-    reservas = ReservaMisa.objects.filter(estado='pendiente').select_related('usuario').all()
+    reservas = ReservaMisa.objects.select_related('usuario').all()
     return render(request, 'ver_solicitudes.html', {'reservas': reservas})
 
 def registro(request):
@@ -433,8 +430,7 @@ def solicitar_bautizo(request):
 
             Detalles de tu solicitud:
             -------------------------
-            Fecha: {bautizo.fecha}
-            Hora: {bautizo.hora}
+            Fecha tentativa: {bautizo.fecha}
             Nombre del Niño/Niños: {bautizo.nombre_nino}
             Nombre del Padre: {bautizo.nombre_padre}
             Nombre de la Madre: {bautizo.nombre_madre}
@@ -466,8 +462,7 @@ def solicitar_bautizo(request):
             -------------------------
             Usuario: {request.user.username}
             Correo: {request.user.email}
-            Fecha: {bautizo.fecha}
-            Hora: {bautizo.hora}
+            Fecha tentativa: {bautizo.fecha}
             Nombre del Niño/Niños: {bautizo.nombre_nino}
             Nombre del Padre: {bautizo.nombre_padre}
             Nombre de la Madre: {bautizo.nombre_madre}
@@ -526,8 +521,7 @@ def solicitar_matrimonio(request):
 
             Detalles de tu solicitud:
             -------------------------
-            Fecha: {matrimonio.fecha}
-            Hora: {matrimonio.hora}
+            Fecha tentativa: {matrimonio.fecha}
             Nombre del Novio: {matrimonio.nombre_novio}
             Nombre de la Novia: {matrimonio.nombre_novia}
             Padrinos: {matrimonio.padrinos}
@@ -556,8 +550,7 @@ def solicitar_matrimonio(request):
             -------------------------
             Usuario: {request.user.username}
             Email: {request.user.email}
-            Fecha: {matrimonio.fecha}
-            Hora: {matrimonio.hora}
+            Fecha tentativa: {matrimonio.fecha}
             Nombre del Novio: {matrimonio.nombre_novio}
             Nombre de la Novia: {matrimonio.nombre_novia}
             Padrinos: {matrimonio.padrinos}
@@ -624,8 +617,7 @@ def aprobar_solicitud_matrimonio(request, matrimonio_id):
 
     Detalles de tu solicitud:
     -------------------------
-    Fecha: {matrimonio.fecha}
-    Hora: {matrimonio.hora}
+    Fecha tentativa: {matrimonio.fecha}
     Nombre del Novio: {matrimonio.nombre_novio}
     Nombre de la Novia: {matrimonio.nombre_novia}
     Padrinos: {matrimonio.padrinos}
@@ -668,8 +660,7 @@ def rechazar_solicitud_matrimonio(request, matrimonio_id):
 
     Detalles de tu solicitud:
     -------------------------
-    Fecha: {matrimonio.fecha}
-    Hora: {matrimonio.hora}
+    Fecha tentativa: {matrimonio.fecha}
     Nombre del Novio: {matrimonio.nombre_novio}
     Nombre de la Novia: {matrimonio.nombre_novia}
     Padrinos: {matrimonio.padrinos}
@@ -709,8 +700,7 @@ def aprobar_solicitud_bautizo(request, bautizo_id):
 
     Detalles de tu solicitud:
     -------------------------
-    Fecha: {bautizo.fecha}
-    Hora: {bautizo.hora}
+    Fecha tentativa: {bautizo.fecha}
     Nombre del Niño/Niños: {bautizo.nombre_nino}
     Nombre del Padre: {bautizo.nombre_padre}
     Nombre de la Madre: {bautizo.nombre_madre}
@@ -754,8 +744,7 @@ def rechazar_solicitud_bautizo(request, bautizo_id):
 
     Detalles de tu solicitud:
     -------------------------
-    Fecha: {bautizo.fecha}
-    Hora: {bautizo.hora}
+    Fecha tentativa: {bautizo.fecha}
     Nombre del Niño/Niños: {bautizo.nombre_nino}
     Nombre del Padre: {bautizo.nombre_padre}
     Nombre de la Madre: {bautizo.nombre_madre}

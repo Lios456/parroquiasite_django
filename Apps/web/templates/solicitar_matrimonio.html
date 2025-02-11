@@ -21,12 +21,8 @@
         <form id="matrimonioForm" method="post">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="fecha" class="form-label">Fecha</label>
+                <label for="fecha" class="form-label">Fecha tentativa</label>
                 <input type="date" class="form-control" id="fecha" name="fecha" min="{{ current_date }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="hora" class="form-label">Hora</label>
-                <input type="time" class="form-control" id="hora" name="hora" required>
             </div>
             <div class="mb-3">
                 <label for="nombre_novio" class="form-label">Nombre del Novio</label>
