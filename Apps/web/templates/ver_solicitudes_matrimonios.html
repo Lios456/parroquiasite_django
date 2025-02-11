@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
     <h2>Solicitudes de Matrimonio</h2>
-    <table class="table table-striped" id="tbl_matrimonios">
+    <table class="table table-striped jquery" id="tbl_matrimonios">
         <thead>
             <tr>
                 <th>Usuario</th>
@@ -41,20 +41,5 @@
         </tbody>
     </table>
 </div>
-<script>
-    $(document).ready(function() {
-        var table = $('#tbl_matrimonios').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-            ],
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-            }
-        });
-    });
-</script>
+
 {% endblock %}
