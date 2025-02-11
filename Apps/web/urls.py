@@ -47,4 +47,6 @@ urlpatterns = [
     path('ver-solicitudes-matrimonios/', views.ver_solicitudes_matrimonios, name='ver_solicitudes_matrimonios'),
     path('aprobar_solicitud_matrimonio/<int:matrimonio_id>/', views.aprobar_solicitud_matrimonio, name='aprobar_solicitud_matrimonio'),
     path('rechazar_solicitud_matrimonio/<int:matrimonio_id>/', views.rechazar_solicitud_matrimonio, name='rechazar_solicitud_matrimonio'),
+    
+    path('dashboard_view/', views.dashboard_view, name='dashboard_view'),
 ]

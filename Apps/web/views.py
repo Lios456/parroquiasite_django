@@ -138,12 +138,17 @@ def login_view(request):
         password = request.POST.get('password')
 
         try:
-            #Autenticar
+            # Autenticar
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
                 messages.success(request, f'Bienvenido {user}')
-                return redirect('/news/')
+                
+                # Redirigir según el rol del usuario
+                if user.is_superuser:
+                    return redirect('/news/')
+                else:
+                    return redirect('/solicitar-misa/')
             else:
                 messages.error(request, f"Credenciales incorrectas")
                 return render(request, 'login.html', context)
@@ -153,7 +158,7 @@ def login_view(request):
 
     else:
         return render(request, 'login.html', context)
-    
+
 def logout_view(request):
     try:
         messages.success(request, f'Adiós {request.user}')
@@ -756,3 +761,13 @@ def rechazar_solicitud_bautizo(request, bautizo_id):
 
     messages.error(request, f'La solicitud de {bautizo.usuario.username} ha sido rechazada. Se ha solicitado un cambio de fecha.')
     return redirect('ver_solicitudes_bautizos')
+
+@login_required(login_url='/login/')
+@staff_member_required(login_url='/login/')
+def dashboard_view(request):
+    context = {
+        'bautizos': Bautizo.objects.all(),
+        'matrimonios': Matrimonio.objects.all(),
+        'misas': ReservaMisa.objects.all(),
+    }
+    return render(request, 'dashboard.html', context)
