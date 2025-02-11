@@ -39,9 +39,14 @@
                     </span>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary btn-slide hover-slide-right w-100"><span>Ingresar</span></button>
+            </div>
 
-            <a href="{% url 'registro' %}" class="btn btn-info w-100">Registrarse</a>
+            <div class="mb-3">
+                <a href="{% url 'registro' %}" class="btn btn-primary btn-slide hover-slide-right w-100"><span>Si no tienes un usuario para iniciar sesión, Regístrate</span></a>
+                
+            </div>
         </form>
     </div>
 </div>
