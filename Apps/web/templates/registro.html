@@ -2,28 +2,29 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="container">
-    <h2>Registrarse</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="id_username" class="form-label">Nombre de usuario</label>
-            {{ form.username }}
-        </div>
-        <div class="mb-3">
-            <label for="id_email" class="form-label">Correo electrónico</label>
-            {{ form.email }}
-        </div>
-        <div class="mb-3">
-            <label for="id_password1" class="form-label">Contraseña</label>
-            {{ form.password1 }}
-        </div>
-        <div class="mb-3">
-            <label for="id_password2" class="form-label">Confirmar Contraseña</label>
-            {{ form.password2 }}
-        </div>
-        <button type="submit" class="btn btn-primary">Crear cuenta</button>
-    </form>
-    
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 400px;">
+        <h2 class="text-center mb-4">Registrarse</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Nombre de usuario</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Correo electrónico</label>
+                {{ form.email }}
+            </div>
+            <div class="mb-3">
+                <label for="id_password1" class="form-label">Contraseña</label>
+                {{ form.password1 }}
+            </div>
+            <div class="mb-3">
+                <label for="id_password2" class="form-label">Confirmar Contraseña</label>
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Crear cuenta</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
